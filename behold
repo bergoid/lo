@@ -1,0 +1,65 @@
+#!/bin/bash
+
+. rabot-utils
+if [ "$?" -ne "0" ]; then
+  echo "$0: Error while sourcing rabot-utils" >&2
+  exit 1
+fi
+
+function showHelp
+{
+cat << DOCSTRING
+Usage: $(basename "$0") [+F] [FILENAME]
+
+'$(basename "$0")' uses 'vim' as a pager
+
+The contents of FILENAME are shown, or stdin if FILENAME is omitted.
+The argument '+F' instructs '$(basename "$0")' to keep reading from
+FILENAME. This behavior can be switched off in the program by pressing
+'Ctrl-c', and switched on by pressing 'F'.
+DOCSTRING
+}
+
+checkForHelp $1
+
+# Obain path to behold.vim
+beholdDir="$(readlink -f "$(dirname $0)")"
+vimScript="$beholdDir/behold.vim"
+
+follow=false
+filename=-
+
+# numargs > 1
+if [ "$#" -gt "1" ]; then
+    if [ "$1" = "+F" ]; then
+        follow=true
+        filename="$2"
+    else
+        exitWith 1 "Unrecognized first argument: '$1'"
+    fi
+
+# numargs <= 1
+else
+
+    # numargs == 1
+    if [ "$#" = 1 ]; then
+        if [ "$1" = "+F" ]; then
+            follow=true
+        else
+            filename="$1"
+        fi
+    fi
+fi
+
+if $follow; then
+    followCommand="-c \"call StartTailing()\""
+else
+    followCommand=
+fi
+
+if [ "$filename" = "-" ]; then
+    filename="$(newLogfile)"
+    cat <&0 | logopf "$filename"
+fi
+
+bash -c "vim -R -u $vimScript $followCommand $filename"

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+C=0
+
+while IFS=$'\015' read hexValue; do
+
+    if [ $(($C % 8)) == 0 ]; then
+        printf "extend(hexValues, [ "
+    else
+        printf ", "
+    fi
+
+    printf "\"$hexValue\""
+
+    ((C++))
+
+    if [ $(($C % 8)) == 0 ]; then
+        printf " ])\n"
+    fi
+
+done < rgb_values.txt

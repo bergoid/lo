@@ -1,0 +1,114 @@
+================================================================================
+
+tmux list-sessions -F 'Session: #{session_name}, Number of windows: #{session_windows}, Number of panes: #{window_panes}, Name of window: #{window_name}, Title of pane: #{pane_title}'
+
+================================================================================
+
+bash functions to inspect tmux sessions/windows/panes tree:
+
+listSessions: list all session names on stdout, one session per line
+
+listWindows SESSION: list all window names of a given session on stdout, one window per line
+
+listPanes WINDOW: list all pane names of a given window on stdout, one pane per line
+
+https://codeyarns.com/2010/11/28/vim-ruler-and-default-ruler-format/
+
+================================================================================
+pager.vim
+---------
+
+v F to follow
+v ctrl-c to stop following
+v q to quit
+x handle (color) escape sequences
+    vim's 'conceal' feature doesn't rearrange the line wrap positions, resulting in premature line breaks in the highlighted text where all escape sequences are concealed.
+    --> strip all ANSI escape sequences instead, and rely on a fixed format to (re-)highlight grep-like output and log output.
+
+. at bottom, show message in grey reversed to indicate follow/no-follow
+    --> should be in "command line" because status line wastes vertical screen estate
+
+. ways to start 'lo':
+    . $ lo
+        . checks if tmux is running:
+            if [ -n "$TMUX" ]; then
+                exit 1
+            fi
+        . checks if lo is already running:
+            if [ -n "$LO_SESSION" ]; then
+                exit 1
+            else
+                export LO_SESSION="/tmp/lo-1000"
+            fi
+        . 
+
+. 'vim -' :
+    don't wait for EOF before showing contents: how?
+
+================================================================================
+
+. lo script
+    . meant to be sourced?
+        . contains bash functions
+
+    . or to be run?
+        . takes command name as 1st argument
+
+. Run 'lo' at command line
+    . if inside tmux session: abort
+    . 'tmux list-sessions' is run to check for existing 'lo[0-9]*' sessions
+    . a new tmux session 'lo<N>' is created (and attached to)
+    . Two L/R panes are created
+    . In the L pane: vim is launched (no underlying bash?)
+        --> remap 'quit' keybindings (like ZZ, ZQ, C-F12, A-F12, ...) to only close file without quitting vim
+        --> new keybinding to quit vim
+    . In the R pane: bash terminal
+    . Optional argument: file to be opened by vim in L pane
+
+. Run 'lo' by piping input into it:
+    . example: some_command | lo
+    . if not inside tmux session:
+        . create new lo tmux session
+        . tail output of some_command in R pane
+    . if inside non-lo tmux session: abort
+    . if inside other 'lo[0-9]*' session:
+        . tail output of some_command in R pane
+
+. lo commands:
+    create : create 2-pane tmux session
+        --> needed? wouldn't this be the default action without arguments?
+
+    run : run a given command, pipe the output to a logfile and tail that file in the R pane. The following commands will make use of 'run':
+
+    buildfile : compile 1 file
+    build : Walk up dir path given as argument. As soon as a makefile is found: make
+    buildall : Walk up dir path given as argument. If a makefile is found, store its path in a variable. Overwrite this value every time. Continue until root dir. Run make on makefile in variable.
+
+    cleanfile
+    clean
+    cleanall
+
+
+. 2 tmux panes
+    . L : vim
+    . R : less +F ~/log/latest.txt
+    --> name them E(dit) & O(utput)? Position on screen configurable.
+        3rd pane C(ommand)
+
+. auto-reload file in vim:
+    :h autoread
+
+. vim async features:
+    :h timer_start
+    :h channel
+
+. things needed along with lo:
+    . rabot
+    . vim as pager
+    . babs
+
+    not necessary:
+        . preppy
+        . vim plugins
+
+

@@ -1,0 +1,8 @@
+[35m[K./makelines[m[K[36m[K:[m[K[32m[K21[m[K[36m[K:[m[Kd[01;31m[Kone[m[K < rgb_values.txt
+[35m[K./grepoutput.txt[m[K[36m[K:[m[K[32m[K1[m[K[36m[K:[m[K[35m[K./makelines[m[K[36m[K:[m[K[32m[K21[m[K[36m[K:[m[Kd[01;31m[K[01;31m[Kone[m[K[m[K < rgb_values.txt
+[35m[K./grepoutput.txt[m[K[36m[K:[m[K[32m[K2[m[K[36m[K:[m[K[35m[K./greppable.txt[m[K[36m[K:[m[K[32m[K1[m[K[36m[K:[m[K[01;31m[K[01;31m[KOne[m[K[m[K
+[35m[K./grepoutput.txt[m[K[36m[K:[m[K[32m[K3[m[K[36m[K:[m[K[35m[K./greppable.txt[m[K[36m[K:[m[K[32m[K5[m[K[36m[K:[m[K[01;31m[K[01;31m[KOne[m[K[m[K Two
+[35m[K./grepoutput.txt[m[K[36m[K:[m[K[32m[K4[m[K[36m[K:[m[K[35m[K./greppable.txt[m[K[36m[K:[m[K[32m[K10[m[K[36m[K:[m[K[01;31m[K[01;31m[Kone[m[K[m[K
+[35m[K./greppable.txt[m[K[36m[K:[m[K[32m[K1[m[K[36m[K:[m[K[01;31m[KOne[m[K
+[35m[K./greppable.txt[m[K[36m[K:[m[K[32m[K5[m[K[36m[K:[m[K[01;31m[KOne[m[K Two
+[35m[K./greppable.txt[m[K[36m[K:[m[K[32m[K10[m[K[36m[K:[m[K[01;31m[Kone[m[K

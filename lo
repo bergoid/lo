@@ -1,0 +1,112 @@
+#!/bin/bash
+
+. rabot-utils
+if [ "$?" -ne "0" ]; then
+  echo "$0: Error while sourcing rabot-utils" >&2
+  exit 1
+fi
+
+scriptName=$(basename "$0")
+scriptFullPath=$(readlink -f "$scriptName")
+
+function showHelp
+{
+cat << DOCSTRING
+Usage: $scriptName
+
+If not in a tmux session: '$scriptName' starts a tmux session.
+Then, a 2-pane left/right layout is created.
+DOCSTRING
+}
+
+checkForHelp $1
+
+############################################################
+#
+# List all tmux session names on stdout,
+# one session per line
+#
+# listSessions
+#
+function listSessions
+{
+    tmux list-sessions -F "#{session_name}"
+}
+
+############################################################
+#
+# List all windows of a given tmux session on stdout,
+# one window per line
+#
+# listWindows SESSION
+#
+function listWindows
+{
+    try test -n "$1"
+    tmux list-windows -F "#{window_name}" -t "$1"
+}
+
+############################################################
+#
+# List all panes of a given tmux window on stdout,
+# one pane per line
+#
+# listPanes
+#
+function listPanes
+{
+    try test -n "$1"
+    tmux list-panes -F "#{pane_index}" -t "$1"
+}
+
+
+############################################################
+#
+# Print the number of windows in the current session
+#
+# numWindows
+#
+function numWindows
+{
+    try test -n "$TMUX"
+    tmux display-message -p "#{session_windows}"
+}
+
+
+############################################################
+#
+# Print the number of panes in the current window
+#
+# numPanes
+#
+function numPanes
+{
+    try test -n "$TMUX"
+    tmux display-message -p "#{window_panes}"
+}
+
+
+# If not in a tmux session: start a new session running this script
+if [ -z "$TMUX" ]; then
+    tmux new-session "$scriptFullPath"
+    exit 0
+fi
+
+# Set 'lo' env variable
+if [ -z "$LO_SESSION" ]; then
+
+    # If in a tmux session but not in a lo session: check the number of windows & panes
+    if [ $(numWindows) -gt 1 ]; then
+        exitWith 1 "Error: lo started from tmux session with more than 1 window"
+    fi
+
+    if [ $(numPanes) -gt 1 ]; then
+        exitWith 1 "Error: lo started from tmux session with more than 1 pane"
+    fi
+
+    export LO_SESSION="/tmp/lo-$$"
+
+fi
+
+aloop "Hello from $TMUX $LO_SESSION !" 5
+pause
