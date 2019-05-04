@@ -1,0 +1,31 @@
+#!/bin/bash
+
+. rabot-utils
+if [ "$?" -ne "0" ]; then
+  echo "$0: Error while sourcing rabot-utils" >&2
+  exit 1
+fi
+
+scriptName=$(basename "$0")
+
+function showHelp
+{
+cat << DOCSTRING
+Usage: $scriptName
+DOCSTRING
+}
+
+checkForHelp $1
+
+#cat <&0 | logop
+logop <&0  > /dev/null &
+#disown
+
+echo MARK 10
+
+if [ -t 1 ]; then
+    echo "In a terminal"
+else
+    echo "Not in a terminal"
+fi
+

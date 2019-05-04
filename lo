@@ -8,6 +8,7 @@ fi
 
 scriptName=$(basename "$0")
 scriptFullPath=$(readlink -f "$scriptName")
+echo scriptFullPath=$scriptFullPath
 
 function showHelp
 {
@@ -85,28 +86,53 @@ function numPanes
     tmux display-message -p "#{window_panes}"
 }
 
+#
+function faketty
+{
+    script -eqfc "$(printf "%q " "$@")" /dev/null
+#    script -eqfc "tmux new-session $scriptFullPath" /dev/null
+}
+
+#if [ -t 1 ]; then
+#    echo "In a terminal"
+#else
+#    echo "Not in a terminal"
+#fi
+
+# Redirect stdin to a logfile
+#if [ "$1" != "skipredir" ]; then
+#    logop <&0  > /dev/null &
+#fi
 
 # If not in a tmux session: start a new session running this script
 if [ -z "$TMUX" ]; then
-    tmux new-session "$scriptFullPath"
+#    script -eqfc "tmux new-session $scriptFullPath" /dev/null
+    faketty tmux new-session "$scriptFullPath"
     exit 0
 fi
 
-# Set 'lo' env variable
-if [ -z "$LO_SESSION" ]; then
+exit 0
 
-    # If in a tmux session but not in a lo session: check the number of windows & panes
-    if [ $(numWindows) -gt 1 ]; then
-        exitWith 1 "Error: lo started from tmux session with more than 1 window"
-    fi
-
-    if [ $(numPanes) -gt 1 ]; then
-        exitWith 1 "Error: lo started from tmux session with more than 1 pane"
-    fi
-
-    export LO_SESSION="/tmp/lo-$$"
-
+# If in a tmux session: check the number of windows & panes
+if [ $(numWindows) -gt 1 ]; then
+    exitWith 1 "Error: lo started from tmux session with more than 1 window"
 fi
 
-aloop "Hello from $TMUX $LO_SESSION !" 5
-pause
+if [ $(numPanes) -gt 1 ]; then
+    exitWith 1 "Error: lo started from tmux session with more than 1 pane"
+fi
+
+
+# Create a second pane
+tmux split-window -h
+
+
+#aloop "Hello from $TMUX $LO_SESSION !" 5
+#echo "Hello!"
+
+#pause
+
+# Start bash, to prevent this pane from closing immediately
+bash
+
+
