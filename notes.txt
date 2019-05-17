@@ -1,8 +1,19 @@
 
-.
+. adapt dwm to start 
+
+v   usage patterns like this:
+
+        aloop hello 200 | ./lo2 &
+
+    can only be started from inside a tmux session
+    Enforce the presence of $TMUX
+
+v  can we add a panel to the existing session from a process "to the right" of the '|' symbol?
+    --> YES
+
     $ aloop hi 10 | lo
 
-    the output of 'aloop' should be piped to a logfile. in the R panel this file can be tailed with 'less +F'
+v    the output of 'aloop' should be piped to a logfile. in the R panel this file can be tailed with 'less +F'
 
 .
     $ aloop hi 10 | lo
@@ -10,6 +21,8 @@
   the output of 'aloop' should appear in the R panel, tailed by 'less +F'
 
 . 'behold' script should only accept a filename to tail, and never stdin
+
+. Later on, if 'lo' is started from a session with more than 1 existing pane: move all other panes to the right & make them accessible with the 'browser' menu in the top right.
 
 . create 'streamcat':
     $ streamcat 3 1 myfile.txt
@@ -27,6 +40,15 @@
 
   Lines containing file paths (maybe suffixed with ':') can be jumped to with 'F6'. The corresponding
   file is shown in the L panel.
+
+================================================================================
+
+In terminal:
+
+    $ nohup logop aloop A 300 &
+    $ disown
+
+No further messages appear in the terminal, also not when the process is terminated
 
 ================================================================================
 

@@ -8,7 +8,7 @@ fi
 
 scriptName=$(basename "$0")
 scriptFullPath=$(readlink -f "$scriptName")
-echo scriptFullPath=$scriptFullPath
+#echo scriptFullPath=$scriptFullPath
 
 function showHelp
 {
@@ -87,52 +87,46 @@ function numPanes
 }
 
 #
-function faketty
-{
-    script -eqfc "$(printf "%q " "$@")" /dev/null
-#    script -eqfc "tmux new-session $scriptFullPath" /dev/null
-}
+#function faketty
+#{
+#    script -eqfc "$(printf "%q " "$@")" /dev/null
+#}
 
-#if [ -t 1 ]; then
-#    echo "In a terminal"
-#else
-#    echo "Not in a terminal"
-#fi
+#
+#function createTmuxSession
+#{
+#}
 
-# Redirect stdin to a logfile
-#if [ "$1" != "skipredir" ]; then
-#    logop <&0  > /dev/null &
-#fi
+#
+#function createTmuxPanes
+#{
+#}
 
-# If not in a tmux session: start a new session running this script
+# Write stdin to logfile
+logop <&0  > /dev/null &
+
+# If not in a tmux session: abort
 if [ -z "$TMUX" ]; then
-#    script -eqfc "tmux new-session $scriptFullPath" /dev/null
-    faketty tmux new-session "$scriptFullPath"
-    exit 0
+
+    exitWith 1 "ERROR: '$(basename "$0")' needs to be run inside 'tmux'"
+
+else
+
+    # If in a tmux session: check the number of windows & panes
+    if [ $(numWindows) -gt 1 ]; then
+        errcho "ERROR: '$(basename "$0")' must started from a tmux session with at most 1 window"
+        errcho "Current number of windows: $(numWindows)"
+        exit 1
+    fi
+
+    if [ $(numPanes) -gt 1 ]; then
+        errcho "ERROR: '$(basename "$0")' must started from a tmux session with at most 1 pane"
+        errcho "Current number of panes: $(numPanes)"
+        exit 1
+    fi
+
+    # Create a second pane
+    tmux split-window -h -p 50 "sleep 2; less +F ~/log/latest.txt"
+
 fi
-
-exit 0
-
-# If in a tmux session: check the number of windows & panes
-if [ $(numWindows) -gt 1 ]; then
-    exitWith 1 "Error: lo started from tmux session with more than 1 window"
-fi
-
-if [ $(numPanes) -gt 1 ]; then
-    exitWith 1 "Error: lo started from tmux session with more than 1 pane"
-fi
-
-
-# Create a second pane
-tmux split-window -h
-
-
-#aloop "Hello from $TMUX $LO_SESSION !" 5
-#echo "Hello!"
-
-#pause
-
-# Start bash, to prevent this pane from closing immediately
-bash
-
 
