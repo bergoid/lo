@@ -1,9 +1,33 @@
+" Function key mappings
+function! Include(filename)
+    execute 'source ' . a:filename
+endfunction
 
 " Allow character sequences like '<CR>' to be treated specially
 set nocompatible
 
+"call Include($BEHOLD_DIR . '/mappings.vim')
+"
+" Map key to a sequence in all modes
+function Mapam(key, sequence)
+    let seq_esc = a:sequence
+    execute 'nnoremap ' . a:key . ' ' . seq_esc
+    execute 'inoremap ' . a:key . ' <esc>' . seq_esc
+    execute 'vnoremap ' . a:key . ' <esc><esc>' . seq_esc
+    execute 'cnoremap ' . a:key . ' <esc><esc>' . seq_esc
+endfunction
+
+" TEST
+call Mapam('<F6>', 'ZQ')
+
+call Include($BEHOLD_DIR . '/ansi2key.vim')
+
 " Disallow all editing
-"set nomodifiable
+set nomodifiable
+
+" Show as much as possible of last 'visible' line, even if it is
+" too long to fit in the rest of the viewport
+set display+=lastline
 
 " Timer ID
 let g:tailTimer=0
@@ -13,12 +37,13 @@ let g:tailTimer=0
 " --------------------
 
 " Map key to a sequence in all modes
-function MapKey(key, sequence)
-    let seq_esc = a:sequence
-    execute 'nnoremap ' . a:key . ' ' . seq_esc
-"    execute 'inoremap ' . a:key . ' <esc>' . seq_esc
-    execute 'vnoremap ' . a:key . ' <esc><esc>' . seq_esc
-endfunction
+"function MapKey(key, sequence)
+"    let seq_esc = a:sequence
+"    execute 'nnoremap ' . a:key . ' ' . seq_esc
+""    execute 'inoremap ' . a:key . ' <esc>' . seq_esc
+"    execute 'vnoremap ' . a:key . ' <esc><esc>' . seq_esc
+"    execute 'cnoremap ' . a:key . ' <esc><esc>' . seq_esc
+"endfunction
 
 " Reload current file
 function Reload(timer)
@@ -38,21 +63,17 @@ function StopTailing()
     set statusline=NOT_FOLLOWING
 endfunction
 
-" TEST
-function TestFun()
-    execute "normal OFOLLOW"
-endfunction
-
 
 " Map keys to imitate 'less'
 " --------------------------
 
 " quit
-call MapKey('q', ':q!<CR>')
+"call MapKey('q', ':q!<CR>')
+call Mapam('q', ':q!<CR>')
 
 " follow
-call MapKey('F', ':call StartTailing()<CR>')
+call Mapam('F', ':call StartTailing()<CR>')
 
 " stop following
-call MapKey('<C-c>', ':call StopTailing()<CR>')
+call Mapam('<C-c>', ':call StopTailing()<CR>')
 

@@ -13,7 +13,7 @@ Usage: $(basename "$0") [+F] [FILENAME]
 
 '$(basename "$0")' uses 'vim' as a pager
 
-The contents of FILENAME are shown, or stdin if FILENAME is omitted.
+The contents of FILENAME are shown.
 The argument '+F' instructs '$(basename "$0")' to keep reading from
 FILENAME. This behavior can be switched off in the program by pressing
 'Ctrl-c', and switched on by pressing 'F'.
@@ -21,13 +21,14 @@ DOCSTRING
 }
 
 checkForHelp $1
+minNumArgs 1 $#
 
 # Obain path to behold.vim
-beholdDir="$(readlink -f "$(dirname $0)")"
-vimScript="$beholdDir/behold.vim"
+export BEHOLD_DIR="$(dirname $(readlink -f "$0"))"
+vimScript="$BEHOLD_DIR/behold.vim"
 
 follow=false
-filename=-
+filename=
 
 # numargs > 1
 if [ "$#" -gt "1" ]; then
@@ -57,9 +58,6 @@ else
     followCommand=
 fi
 
-if [ "$filename" = "-" ]; then
-    filename="$(newLogfile)"
-    cat <&0 | logopf "$filename"
-fi
+try test -n "$filename"
 
 bash -c "vim -R -u $vimScript $followCommand $filename"

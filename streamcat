@@ -1,0 +1,39 @@
+#!/bin/bash
+
+. rabot-utils
+if [ "$?" -ne "0" ]; then
+  echo "$0: Error while sourcing rabot-utils" >&2
+  exit 1
+fi
+
+
+function showHelp
+{
+cat << DOCSTRING
+Usage: $(basename "$0") TIMEOUT NUMLINES FILENAME
+'$(basename "$0")' will print every TIMEOUT seconds a burst of
+NUMLINES lines from FILENAME on stdout.
+DOCSTRING
+}
+
+checkForHelp $1
+minNumArgs 3 $#
+
+timeout="$1"
+numlines="$2"
+filename="$3"
+
+counter=0
+
+while IFS= read -r line; do
+
+    echo "$line"
+
+    : $[ counter++ ]
+
+    if [ "$counter" -eq "$numlines" ]; then
+        counter=0
+        sleep "$timeout"
+    fi
+
+done < "$filename"

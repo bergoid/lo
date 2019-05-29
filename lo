@@ -86,21 +86,10 @@ function numPanes
     tmux display-message -p "#{window_panes}"
 }
 
-#
-#function faketty
-#{
-#    script -eqfc "$(printf "%q " "$@")" /dev/null
-#}
-
-#
-#function createTmuxSession
-#{
-#}
-
-#
-#function createTmuxPanes
-#{
-#}
+function getOtherPaneIndex
+{
+    tmux list-panes -F "#{pane_index}" | grep -v $(tmux display-message -p "#{pane_index}")
+}
 
 # Write stdin to logfile
 logop <&0  > /dev/null &
@@ -119,14 +108,20 @@ else
         exit 1
     fi
 
-    if [ $(numPanes) -gt 1 ]; then
-        errcho "ERROR: '$(basename "$0")' must started from a tmux session with at most 1 pane"
+    if [ $(numPanes) -gt 2 ]; then
+        errcho "ERROR: '$(basename "$0")' must started from a tmux session with at most 2 panes"
         errcho "Current number of panes: $(numPanes)"
         exit 1
     fi
 
-    # Create a second pane
-    tmux split-window -h -p 50 "sleep 2; less +F ~/log/latest.txt"
+    # Create a second pane, if absent
+    if [ $(numPanes) -lt 2 ]; then
+        tmux split-window -h -p 50 "bash"
+    fi
 
 fi
+
+# Start 'less +F ...' in other pane than the current one
+tmux send-keys -t $(getOtherPaneIndex) "sleep 1; ~/prj/lo/behold +F ~/log/latest.txt" Enter
+
 

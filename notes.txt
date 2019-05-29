@@ -1,5 +1,59 @@
 
-. adapt dwm to start 
+. behold.vim still allows: ':w!'
+    . this will update the timestamp of the logfile
+    . disallow this
+        . disallow individual command(s)?
+        . is there a switch to disallow all file writes?
+
+. Lines containing file paths (maybe suffixed with ':') can be jumped to with 'F6'. The corresponding file is shown in the L panel.
+
+. TODO : why does 'vim' need to be started in new bash session?
+
+. Later on, if 'lo' is started from a session with more than 1 existing pane: move all other panes to the right & make them accessible with the 'browser' menu in the top right.
+
+. behold:
+
+    . ctrl-F12 doesn't close file:
+        . "W10: Warning: Changing a readonly file"
+
+        and also:
+
+        . 'E21: Cannot make changes, 'modifiable' is off'
+
+        . add mappings from ~/.vim:
+            . escseq-default.vim
+            . mappings.vim
+            . copy Mapam from tools.vim into behold.vim
+
+    v check if vim can show part of very long line at the bottom
+
+v create 'streamcat':
+    $ streamcat 3 1 myfile.txt
+        prints every 3 seconds a line from myfile.txt to stdout
+
+    $ streamcat 5 10 myfile.txt
+        prints every 5 seconds a burst of 10 lines from myfile.txt to stdout
+
+v This command:
+    $ streamcat 5 5 myfile.txt | lo
+
+  should tail the output of streamcat in the R panel, with 'behold +F'
+
+
+v
+    $ aloop hi 10 | lo&
+
+  the output of 'aloop' should appear in the R panel, tailed by 'less +F'
+
+v 'behold' script should only accept a filename to tail, and never stdin
+
+v
+    $ aloop hi 10 | lo&
+
+  the output of 'aloop' should appear in the R panel, tailed by 'behold +F'
+
+
+v adapt dwm to auto-start tmux
 
 v   usage patterns like this:
 
@@ -14,32 +68,6 @@ v  can we add a panel to the existing session from a process "to the right" of t
     $ aloop hi 10 | lo
 
 v    the output of 'aloop' should be piped to a logfile. in the R panel this file can be tailed with 'less +F'
-
-.
-    $ aloop hi 10 | lo
-
-  the output of 'aloop' should appear in the R panel, tailed by 'less +F'
-
-. 'behold' script should only accept a filename to tail, and never stdin
-
-. Later on, if 'lo' is started from a session with more than 1 existing pane: move all other panes to the right & make them accessible with the 'browser' menu in the top right.
-
-. create 'streamcat':
-    $ streamcat 3 1 myfile.txt
-        prints every 3 seconds a line from myfile.txt to stdout
-
-    $ streamcat 5 10 myfile.txt
-        prints every 5 seconds a burst of 10 lines from myfile.txt to stdout
-
-. This command:
-    $ streamcat 5 5 myfile.txt | lo
-
-  should tail the output of streamcat in the R panel, with 'less +F'
-
-
-
-  Lines containing file paths (maybe suffixed with ':') can be jumped to with 'F6'. The corresponding
-  file is shown in the L panel.
 
 ================================================================================
 
@@ -163,4 +191,41 @@ x handle (color) escape sequences
         . preppy
         . vim plugins
 
+==========================================================================================
+https://vim.fandom.com/wiki/Using_vim_as_a_syntax-highlighting_pager
 
+If you want to use Vim's syntax highlighting in a pager, here's how. Since version 6, Vim comes with a script $VIMRUNTIME/macros/less.sh, and this gives syntax highlighting in a pager. See :help less.
+
+The original tip (below) was for a "more"-style pager. It is kept here because it explains the principles nicely.
+
+First, create a vimrc like the following – I called mine ~/.vimrc.more
+
+
+
+" No compatibility – necessary for mappings to work.
+set nocompatible
+
+" Status line
+set laststatus=0
+set cmdheight=1
+set nomodifiable " Only in version 6.0
+set readonly
+
+" My xterms have a navy-blue background, so I need this line too.
+set background=dark
+
+" Turn syntax on
+syntax enable
+
+" No menu bar and tool bar
+set guioptions=aiMr
+
+" Key bindings.
+nmap b <C-B><C-G>
+nmap q :q!<CR>
+nmap <Up> <C-Y>
+nmap <Down> <C-E>
+
+" To type the following line, type *two* C-V's followed by two spaces. This
+" is how you map the spacebar.
+nmap ^V <C-F><C-G>
