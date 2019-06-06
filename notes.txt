@@ -1,4 +1,31 @@
 
+. try to develop a custom search function
+    . grp something and pipe results to file
+    . 'streamcat' this file to lo
+    . search pattern: ^filepath:line:column
+    . vimscript function:
+        . execute normal '/' etc
+        . try to extract path, line & col
+        . send keys to L panel that open filepath and put cursor on line & col
+
+    . help resources:
+        . :h @/
+        . :h function-search-undo
+        . :h hlsearch
+        . :h match
+        . https://superuser.com/questions/578231/vim-how-do-you-highlight-a-search-pattern-from-script
+        . https://superuser.com/questions/750610/vim-using-functions-to-search-vimrc
+
+. 'behold' modes:
+    . normal 'ctrl-C'
+        . don't reload
+    . reload 'R'
+        . reload every n seconds
+    . follow 'F'
+        . like 'reload', but scroll to the bottom after every reload.
+
+    . 'behold' should be able to switch automatically from 'follow' to 'reload' when the first match is  found.
+
 . behold.vim still allows: ':w!'
     . this will update the timestamp of the logfile
     . disallow this

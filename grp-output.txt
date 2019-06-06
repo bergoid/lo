@@ -1,0 +1,31 @@
+/home/bert/prj/tuita/www/samples/pbar/app.js:2:define(["radi"], function (ra) {
+/home/bert/prj/tuita/www/samples/style/app.js:2:define(["radi"], function (ra) {
+/home/bert/prj/tuita/www/samples/create/app.js:2:define(["radi"], function (ra) {
+/home/bert/prj/tuita/www/samples/paths/v00/c01/context.js:2:define(["vn/tuitasplash", "vn/radi"], function (ts, ra) {
+/home/bert/prj/tuita/www/samples/paths/v00/tuitasplash.js:2:define(["vn/radi", "vn/tuitaprogress"], function (ra, tp) {
+/home/bert/prj/tuita/www/samples/paths/v00/c00/context.js:2:define(["vn/tuitasplash", "vn/radi"], function (ts, ra) {
+/home/bert/prj/tuita/www/samples/paths/v00/tuitaprogress.js:2:define(["vn/radi"], function (ra) {
+/home/bert/prj/tuita/www/samples/children/app.js:2:define(["radi"], function (ra) {
+/home/bert/prj/tuita/www/samples/ww1/app.js:2:define(['radi'],
+/home/bert/prj/tuita/www/samples/ww3/app.js:2:define(['radi', (typeof root.Worker == "undefined") ? 'lz64i' : 'lz64', 'plaintext10'], function (ra, lz64, plaintext) {
+/home/bert/prj/tuita/www/samples/flexlayout/app.js:2:define(['radi', 'flexlayout'], function (ra, fl) {
+/home/bert/prj/tuita/www/samples/flexlayout/flexlayout.js:2:define(['radi'], function (ra) {
+/home/bert/prj/tuita/www/samples/lz2/app.js:2:define(['radi', 'lz64', 'plaintext10'], function (ra, lz64, plaintext) {
+/home/bert/prj/tuita/www/samples/ww2/worker.js:7:        ["radi"],
+/home/bert/prj/tuita/www/samples/ww2/worker.js:13:            console.error("Error loading module radi.js");
+/home/bert/prj/tuita/www/samples/ww2/app.js:2:define(['radi'],
+/home/bert/prj/tuita/www/samples/pbar2/app.js:2:define(["radi", "tuitasplash"], function (ra, ts) {
+/home/bert/prj/tuita/www/samples/pbar2/tuitasplash.js:2:define(["radi", "tuitaprogress"], function (ra, tp) {
+/home/bert/prj/tuita/www/samples/pbar2/tuitaprogress.js:2:define(["radi"], function (ra) {
+/home/bert/prj/tuita/www/samples/ww4/app.js:2:define(['radi', (typeof root.Worker == "undefined") ? 'lz64i' : 'lz64', 'plaintext-uemns'], function (ra, lz64, plaintext) {
+/home/bert/prj/tuita/www/samples/lz1/app.js:2://define(['radi', 'lzma', 'plaintext10M'], function (ra, lz, plaintext) {
+/home/bert/prj/tuita/www/samples/lz1/app.js:3:define(['radi', 'lzma', 'plaintext10'], function (ra, lz, plaintext) {
+/home/bert/prj/tuita/www/v00/c01/fsm.js:2:define(['vn/radi'], function (ra) {
+/home/bert/prj/tuita/www/v00/c01/flexlayout.js:2:define(['vn/radi'], function (ra) {
+/home/bert/prj/tuita/www/v00/c01/context.js:2:define(["vn/radi", "ct/fsm", "ct/flexlayout", /*"vn/tuitasplash",*/ "vn/" + ((!!root.Worker) ? "lz64" : "lz64i")], function (ra, fsmlib, fl, /*ts,*/ lz64) {
+/home/bert/prj/tuita/www/v00/c01/splitbox.js:2:define(['vn/radi'], function (ra) {
+/home/bert/prj/tuita/www/v00/tuitasplash.js:2:define(["vn/radi", "vn/tuitaprogress"], function (ra, tp) {
+/home/bert/prj/tuita/www/v00/c00/context.js:2:define(["vn/tuitasplash", "vn/radi"], function (ts, ra) {
+/home/bert/prj/tuita/www/v00/tuitaprogress.js:2:define(["vn/radi"], function (ra) {
+/home/bert/prj/tuita/notes.txt:1:    . merge fsmlib into radi
+/home/bert/prj/tuita/notes.txt:156:    v remove dependency on radi

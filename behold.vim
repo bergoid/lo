@@ -6,8 +6,8 @@ endfunction
 " Allow character sequences like '<CR>' to be treated specially
 set nocompatible
 
-"call Include($BEHOLD_DIR . '/mappings.vim')
-"
+call Include($BEHOLD_DIR . '/ansi2key.vim')
+
 " Map key to a sequence in all modes
 function Mapam(key, sequence)
     let seq_esc = a:sequence
@@ -18,7 +18,7 @@ function Mapam(key, sequence)
 endfunction
 
 " TEST
-call Mapam('<F6>', 'ZQ')
+"call Mapam('<C-F12>', 'ZQ')
 
 call Include($BEHOLD_DIR . '/ansi2key.vim')
 
@@ -32,6 +32,13 @@ set display+=lastline
 " Timer ID
 let g:tailTimer=0
 
+" Highlighting of search matches
+set hlsearch
+hi Search ctermbg=blue
+
+" Highlight current line in dark grey
+set cursorline
+hi CursorLine NONE ctermbg=233
 
 " Function definitions
 " --------------------
@@ -63,6 +70,12 @@ function StopTailing()
     set statusline=NOT_FOLLOWING
 endfunction
 
+"
+function TestSearch()
+    " A linenbr of 0 means nothing found
+    let linenbr = search("^\/.*:", "W")
+"    echom linenbr
+endfunction
 
 " Map keys to imitate 'less'
 " --------------------------
@@ -76,4 +89,7 @@ call Mapam('F', ':call StartTailing()<CR>')
 
 " stop following
 call Mapam('<C-c>', ':call StopTailing()<CR>')
+
+" Test search
+call Mapam('<F6>', ':call TestSearch()<CR>')
 
