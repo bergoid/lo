@@ -17,9 +17,6 @@ function Mapam(key, sequence)
     execute 'cnoremap ' . a:key . ' <esc><esc>' . seq_esc
 endfunction
 
-" TEST
-"call Mapam('<C-F12>', 'ZQ')
-
 call Include($BEHOLD_DIR . '/ansi2key.vim')
 
 " Disallow all editing
@@ -40,17 +37,8 @@ hi Search ctermbg=blue
 set cursorline
 hi CursorLine NONE ctermbg=233
 
-" Function definitions
-" --------------------
-
-" Map key to a sequence in all modes
-"function MapKey(key, sequence)
-"    let seq_esc = a:sequence
-"    execute 'nnoremap ' . a:key . ' ' . seq_esc
-""    execute 'inoremap ' . a:key . ' <esc>' . seq_esc
-"    execute 'vnoremap ' . a:key . ' <esc><esc>' . seq_esc
-"    execute 'cnoremap ' . a:key . ' <esc><esc>' . seq_esc
-"endfunction
+" Imitate the behaviour of 'less' somewhat
+" ----------------------------------------
 
 " Reload current file
 function Reload(timer)
@@ -70,18 +58,7 @@ function StopTailing()
     set statusline=NOT_FOLLOWING
 endfunction
 
-"
-function TestSearch()
-    " A linenbr of 0 means nothing found
-    let linenbr = search("^\/.*:", "W")
-"    echom linenbr
-endfunction
-
-" Map keys to imitate 'less'
-" --------------------------
-
 " quit
-"call MapKey('q', ':q!<CR>')
 call Mapam('q', ':q!<CR>')
 
 " follow
@@ -90,6 +67,29 @@ call Mapam('F', ':call StartTailing()<CR>')
 " stop following
 call Mapam('<C-c>', ':call StopTailing()<CR>')
 
-" Test search
-call Mapam('<F6>', ':call TestSearch()<CR>')
+
+" Search for lines with path:line:col info
+" ----------------------------------------
+
+"
+let queryLine = "^\/.\{-}:"
+"let queryLine = "^\/.*:"
+let queryPath = "^\/.\{-}:"
+
+"
+function SearchPalico(dir)
+    let flags = "W" . a:dir
+    " A linenbr of 0 means no match found
+    let linenbr = search(g:queryLine, flags)
+    if linenbr > 0
+"        let path = matchstr(getline('.'), g:queryPath)
+"        echom path
+        echom linenbr
+    endif
+endfunction
+
+" Mappings
+call Mapam('<F6>', ':call SearchPalico("")<CR>')
+
+call Mapam('<S-F6>', ':call SearchPalico("b")<CR>')
 
