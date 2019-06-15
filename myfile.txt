@@ -1,10 +1,12 @@
-hi 1
-hi 2
-hi 3
-hi 4
-hi 5
-hi 6
-hi 7
-hi 8
-hi 9
-hi 10
+/home/bert/prj/lo/rabot_demo/pick1:46:5:
+/home/bert/prj/lo/rabot_demo/grp:33:1:
+/home/bert/prj/lo/rabot_demo/cleandir:38:24:
+/home/bert/prj/lo/rabot_demo/pickn:58:5:
+/home/bert/prj/lo/rabot_demo/rabot-utils:114:5:
+/home/bert/prj/lo/rabot_demo/logop:86:5:
+/home/bert/prj/lo/rabot_demo/tgzfiles:62:5:
+/home/bert/prj/lo/rabot_demo/docScripts:40:1:
+/home/bert/prj/lo/rabot_demo/README.rst:566:1:
+/home/bert/prj/lo/rabot_demo/flon:47:1:
+/home/bert/prj/lo/rabot_demo/budir:40:1:
+/home/bert/prj/lo/rabot_demo/glon:57:1:

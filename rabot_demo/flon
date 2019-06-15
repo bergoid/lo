@@ -1,0 +1,51 @@
+#!/bin/bash
+
+. rabot-utils
+if [ "$?" -ne "0" ]; then
+  echo "$0: Error while sourcing rabot-utils" >&2
+  exit 1
+fi
+
+function showHelp
+{
+cat << DOCSTRING
+Usage: FINDCOMMAND | $(basename "$0")
+
+'$(basename "$0")' takes the output of a 'find' command
+(or a command with similar output) and opens it in the
+'quickfix' window of a 'vim' session.
+
+This allows for easy navigation through all files found
+by FINDCOMMAND.
+
+At startup, 'vim' will map the ':cn' and ':cp' commands
+to the 'F6' and '<SHIFT>-F6' key combinations,
+respectively. You can change this mapping either by
+editing the file 'vimnav' in the directory where rabot
+is installed or by setting an environment variable
+RABOT_VIMNAV to the path of your own vimscript.
+
+The 'quickfix' window will assume that the output
+contains nothing but filenames, as 'vim' will be
+started with 'errorformat' equal to '%f'.
+
+Example:
+
+    $ find . -type f | flon
+
+This will open 'vim' and display the 'quickfix' window
+at the bottom of the screen. This window will contain
+a list of every file in the current working directory
+and all its subdirectories.
+
+See also: 'glon'
+DOCSTRING
+}
+
+checkForHelp $1
+
+require vim
+
+vimFile="${RABOT_VIMNAV:-"$(rabotInstallDir)/vimnav"}"
+
+vim -c "so $vimFile" -c "set errorformat=%f" -c "cb!" -c "copen" -

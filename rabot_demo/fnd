@@ -1,0 +1,34 @@
+#!/bin/bash
+
+. rabot-utils
+if [ "$?" -ne "0" ]; then
+  echo "$0: Error while sourcing rabot-utils" >&2
+  exit 1
+fi
+
+function showHelp
+{
+cat << DOCSTRING
+Usage: $(basename "$0") ['find' arguments]
+
+'$(basename "$0")' wraps the 'find' tool by adding options that make it
+exclude directories with the following names:
+
+    '.git', '.hg', '.svn', '.bzr' and 'CVS'
+
+See also: 'fnd0', 'grp'
+DOCSTRING
+}
+
+checkForHelp $1
+
+require find
+
+excludedDirs=".git .svn .hg .bzr CVS"
+expression=
+
+while read name; do
+   expression="$expression ! -path \*/$name ! -path \*/$name/\*"
+done < <(tr ' ' $'\n' <<< "$excludedDirs")
+
+bash -c "find $* $expression"

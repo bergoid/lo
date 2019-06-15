@@ -1,0 +1,29 @@
+#!/bin/bash
+
+. rabot-utils
+if [ "$?" -ne "0" ]; then
+  echo "$0: Error while sourcing rabot-utils" >&2
+  exit 1
+fi
+
+function showHelp
+{
+cat << DOCSTRING
+Usage: $(basename "$0") [LENGTH]
+
+'$(basename "$0")' prints a random alphanumerical string of
+LENGTH characters (3 by default).
+
+Example:
+
+    $ randid 5
+    mx2ft
+DOCSTRING
+}
+
+checkForHelp $1
+
+idLength=${1:-3}
+if [ "$idLength" -gt "0" ]; then
+    cat /dev/urandom | tr -dc 'a-z0-9' | fold -w $idLength | head -n 1
+fi

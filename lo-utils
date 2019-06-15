@@ -1,0 +1,55 @@
+#!/bin/bash
+
+#[ -n "$LO_UTILS" ] && return || readonly LO_UTILS=1
+
+
+############################################################
+#
+# Get index of the current pane
+#
+# getCurrentPaneIndex
+#
+function getCurrentPaneIndex
+{
+    tmux display-message -p "#{pane_index}"
+}
+
+
+############################################################
+#
+# Get index of other pane than current one
+#
+# getOtherPaneIndex
+#
+function getOtherPaneIndex
+{
+    tmux list-panes -F "#{pane_index}" | grep -v $(tmux display-message -p "#{pane_index}")
+}
+
+
+############################################################
+#
+# gotoPalico PATH [LINE [COLUMN]]
+#
+function gotoPalico
+{
+    local path="$1"
+    local line="${2:-0}"
+    local column="${3:-0}"
+
+    if [ -n "$path" ]; then
+#        tmux send-keys -t $(getOtherPaneIndex) ":e $path|norm ${line}G${column}|" Enter
+#        tmux send-keys -t $(getOtherPaneIndex) ":e $path|${line}|norm zz${column}|" Enter
+        tmux send-keys -t $(getOtherPaneIndex) ":e $path|call cursor($line,$column)|norm zz" Enter
+
+#        tmux send-keys -t $(getOtherPaneIndex) ": GOTOPALICO $path $line $column" Enter
+#        tmux send-keys -t $(getOtherPaneIndex) ": GOTOPALICO '$path'" Enter
+#        tmux send-keys -t $(getOtherPaneIndex) ":echom '$path'" Enter
+    fi
+}
+
+export -f getCurrentPaneIndex
+export -f getOtherPaneIndex
+export -f gotoPalico
+
+

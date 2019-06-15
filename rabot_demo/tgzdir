@@ -1,0 +1,18 @@
+#!/bin/bash
+
+. rabot-utils
+if [ "$?" -ne "0" ]; then
+  echo "$0: Error while sourcing rabot-utils" >&2
+  exit 1
+fi
+
+require tar
+
+xdir_this=tgz
+xdir_other=zip
+
+. xdir
+
+try tar -cpzf "$destFile" "$srcDirRelative"
+
+readlink -f "$destFile"

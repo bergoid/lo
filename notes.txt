@@ -1,20 +1,27 @@
+. write bash function that prints a hierarchical overview of:
+    . tmux sessions
+        . their windows
+            .their panes
 
-. try to develop a custom search function
-    . grp something and pipe results to file
-    . 'streamcat' this file to lo
-    . search pattern: ^filepath:line:column
-    . vimscript function:
-        . execute normal '/' etc
-        . try to extract path, line & col
-        . send keys to L panel that open filepath and put cursor on line & col
-
-    . help resources:
-        . :h @/
-        . :h function-search-undo
-        . :h hlsearch
-        . :h match
-        . https://superuser.com/questions/578231/vim-how-do-you-highlight-a-search-pattern-from-script
-        . https://superuser.com/questions/750610/vim-using-functions-to-search-vimrc
+. master pane
+    . name: lo-master
+    . top right
+    . 25% height
+    . make position configurable
+    . run vim inside the pane
+        . lo-master.vim
+    . auto resize pane to total number of lines
+    . accept key sequences
+        . leader key
+            . comma?
+            . a character string follows, terminated by <Enter>
+                . handle this sequence in a switch/case
+        . palico too?
+        . function keys
+            . examples:
+                . F2: ",f2<Enter>"
+                . Shift-F6: ",sf6<Enter>"
+                . Alt-F7: ",mf7<Enter>"
 
 . 'behold' modes:
     . normal 'ctrl-C'
@@ -26,13 +33,15 @@
 
     . 'behold' should be able to switch automatically from 'follow' to 'reload' when the first match is  found.
 
+. check if already in 'lo' session
+    . check for the existence of a pane called 'lo-master'
+        . optionally: 'lo-edit'?
+
 . behold.vim still allows: ':w!'
     . this will update the timestamp of the logfile
     . disallow this
         . disallow individual command(s)?
         . is there a switch to disallow all file writes?
-
-. Lines containing file paths (maybe suffixed with ':') can be jumped to with 'F6'. The corresponding file is shown in the L panel.
 
 . TODO : why does 'vim' need to be started in new bash session?
 
@@ -53,6 +62,16 @@
             . copy Mapam from tools.vim into behold.vim
 
     v check if vim can show part of very long line at the bottom
+
+v try to develop a custom search function
+    v grp something and pipe results to file
+    v 'streamcat' this file to lo
+    v search pattern: ^filepath:line:column
+    v vimscript function:
+        v execute normal '/' etc
+        v try to extract path, line & col
+        v send keys to L panel that open filepath and put cursor on line & col
+            v start lo& normally, then start vim in same (L) terminal
 
 v create 'streamcat':
     $ streamcat 3 1 myfile.txt

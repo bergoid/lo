@@ -11,10 +11,10 @@ call Include($BEHOLD_DIR . '/ansi2key.vim')
 " Map key to a sequence in all modes
 function Mapam(key, sequence)
     let seq_esc = a:sequence
-    execute 'nnoremap ' . a:key . ' ' . seq_esc
-    execute 'inoremap ' . a:key . ' <esc>' . seq_esc
-    execute 'vnoremap ' . a:key . ' <esc><esc>' . seq_esc
-    execute 'cnoremap ' . a:key . ' <esc><esc>' . seq_esc
+    execute 'nnoremap <silent>' . a:key . ' ' . seq_esc
+    execute 'inoremap <silent>' . a:key . ' <esc>' . seq_esc
+    execute 'vnoremap <silent>' . a:key . ' <esc><esc>' . seq_esc
+    execute 'cnoremap <silent>' . a:key . ' <esc><esc>' . seq_esc
 endfunction
 
 call Include($BEHOLD_DIR . '/ansi2key.vim')
@@ -31,7 +31,8 @@ let g:tailTimer=0
 
 " Highlighting of search matches
 set hlsearch
-hi Search ctermbg=blue
+"hi Search ctermbg=blue
+hi Search ctermbg=17
 
 " Highlight current line in dark grey
 set cursorline
@@ -72,19 +73,22 @@ call Mapam('<C-c>', ':call StopTailing()<CR>')
 " ----------------------------------------
 
 "
-let queryLine = "^\/.\{-}:"
-"let queryLine = "^\/.*:"
-let queryPath = "^\/.\{-}:"
+let queryPalico = '^\(\/.\{-}\):\([0-9]\{-}\)\?:\([0-9]\{-}\)\?:'
+let queryLine = '^\/.\{-}:'
 
 "
 function SearchPalico(dir)
     let flags = "W" . a:dir
-    " A linenbr of 0 means no match found
-    let linenbr = search(g:queryLine, flags)
-    if linenbr > 0
-"        let path = matchstr(getline('.'), g:queryPath)
-"        echom path
-        echom linenbr
+    " A line number of 0 means no match found
+    let linenbr_matched = search(g:queryLine, flags)
+    if linenbr_matched > 0
+        let palicoList = matchlist(getline(linenbr_matched), g:queryPalico)
+        let path = palicoList[1]
+        let line = str2nr(palicoList[2])
+        let column = str2nr(palicoList[3])
+
+        " Send vim command to other panel
+        silent let retval = system('gotoPalico ' . path . ' ' . line . ' ' . column)
     endif
 endfunction
 

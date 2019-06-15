@@ -1,0 +1,46 @@
+#!/bin/bash
+
+. rabot-utils
+if [ "$?" -ne "0" ]; then
+  echo "$0: Error while sourcing rabot-utils" >&2
+  exit 1
+fi
+
+function showHelp
+{
+cat << DOCSTRING
+Usage: $(basename "$0") [DIR]
+
+Summary: Compress the contents of a directory into a .tgz file
+         saved in a dedicated backup directory.
+
+'$(basename "$0")' performs the following actions:
+
+1. If the environment variable RABOT_BUDIR is defined, this is used as the
+   destination directory. Otherwise, '~/backup' is used.
+
+2. Run the script 'tgzdir' to compress the contents of DIR into a .tgz file
+   located in the destination directory. If DIR is omitted, the current working
+   directory is used as DIR.
+
+See also: 'tgzdir', 'zipdir', 'cleandir'
+DOCSTRING
+}
+
+checkForHelp $1
+
+require tgzdir
+
+# 1.
+destDir="${RABOT_BUDIR:-"$HOME/backup"}"
+
+try mkdir -p "$destDir"
+
+# 2.
+srcDir=${1:-$PWD}
+
+if [ ! -d "$srcDir" ]; then
+    exitWith 1 "Error: the source directory '$srcDir' doesn't exist"
+fi
+
+try tgzdir "$srcDir" "$destDir"

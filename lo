@@ -6,6 +6,12 @@ if [ "$?" -ne "0" ]; then
   exit 1
 fi
 
+. lo-utils
+if [ "$?" -ne "0" ]; then
+  echo "$0: Error while sourcing lo-utils" >&2
+  exit 1
+fi
+
 scriptName=$(basename "$0")
 scriptFullPath=$(readlink -f "$scriptName")
 #echo scriptFullPath=$scriptFullPath
@@ -86,11 +92,6 @@ function numPanes
     tmux display-message -p "#{window_panes}"
 }
 
-function getOtherPaneIndex
-{
-    tmux list-panes -F "#{pane_index}" | grep -v $(tmux display-message -p "#{pane_index}")
-}
-
 # Write stdin to logfile
 logop <&0  > /dev/null &
 
@@ -116,12 +117,25 @@ else
 
     # Create a second pane, if absent
     if [ $(numPanes) -lt 2 ]; then
-        tmux split-window -h -p 50 "bash"
+        # -h : split horizontally
+        # -d : don't switch focus to new pane
+        # -p 50 : split evenly (50%)
+        tmux split-window -h -d -p 50 "bash"
     fi
+
+    # Set the title of the current pane
+    tmux select-pane -T lo-edit
+
+    # Start vim in edit pane
+    tmux send-keys -t $(getCurrentPaneIndex) "vim" Enter
+
+    # Set the title of the other pane, and switch to it
+    tmux select-pane -T lo-output -t $(getOtherPaneIndex)
+    tmux select-pane -t $(getOtherPaneIndex)
 
 fi
 
-# Start 'less +F ...' in other pane than the current one
-tmux send-keys -t $(getOtherPaneIndex) "sleep 1; ~/prj/lo/behold +F ~/log/latest.txt" Enter
-
+# Start 'less +F ...' in output pane
+tmux send-keys -t $(getCurrentPaneIndex) ". lo-utils" Enter
+tmux send-keys -t $(getCurrentPaneIndex) "sleep 1; ~/prj/lo/behold +F ~/log/latest.txt" Enter
 

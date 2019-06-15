@@ -1,0 +1,764 @@
+#!/bin/bash
+
+[ -n "$RABOT_UTILS" ] && return || readonly RABOT_UTILS=1
+
+############################################################
+#                                                          #
+#    Some utility functions used by the 'rabot' scripts    #
+#                                                          #
+############################################################
+
+
+############################################################
+#
+# Print to stderr
+#
+# errcho [ARGS ...]
+#
+function errcho
+{
+    echo "$*" >&2
+}
+
+
+############################################################
+#
+# Exit bash script after printing a message to stderr
+#
+# exitWith [EXITSTATUS] [MESSAGE]
+#
+# EXITSTATUS : (default 1) the exit status
+# MESSAGE : (default empty) the message
+#
+function exitWith
+{
+    if [ -n "$2" ]; then
+        errcho "$2"
+    fi
+
+    if [ -n "$1" ]; then
+        exit "$1"
+    else
+        exit 1
+    fi
+}
+
+
+############################################################
+#
+# Exit bash script and print a message to stderr if a previous
+# command returned with a non-zero exit status. Do nothing
+# otherwise.
+#
+# exitOnError MESSAGE
+#
+# MESSAGE : (default empty) the message
+#
+# Warning: If bash commands are executed on-the-fly to produce the
+#          message string, the exit status of the previous command
+#          will be reset before control reaches the body of the
+#          function 'exitOnError'. For example, the following command:
+#
+#               exitOnError "The directory: $(pwd) is empty"
+#
+#          will never abort the script as long as the 'pwd' command
+#          succeeds.
+#
+function exitOnError
+{
+    local exitStatus="$?"
+
+    if [ "$exitStatus" -ne "0" ]; then
+        exitWith $exitStatus "${1:-"Unknown error"}"
+    fi
+}
+
+
+############################################################
+#
+# Run a command and suppress all output.
+# If the exit status is zero, return 'true'.
+# Return 'false' if the exit status is non-zero.
+#
+# succeeds COMMAND [ARGS ...]
+#
+# This can be used to make conditionals more expressive,
+# while avoiding unneeded output:
+#
+# if succeeds pgrep -f 'someProcess'; then
+#   ...
+# fi
+#
+function succeeds
+{
+    "$@" > /dev/null 2>&1
+    [ "$?" -eq "0" ]
+}
+
+
+############################################################
+#
+# Run a command and suppress all output.
+# If the exit status is non-zero, return 'true'.
+# Return 'false' if the exit status is zero.
+#
+# This can be used to make conditionals more expressive,
+# while avoiding unneeded output:
+#
+# if fails pgrep -f 'someProcess'; then
+#   ...
+# fi
+#
+function fails
+{
+    "$@" > /dev/null 2>&1
+    [ "$?" -ne "0" ]
+}
+
+
+############################################################
+#
+# Run a command, and if exit status is nonzero:
+# print an error message and abort script.
+#
+# try COMMAND [ARGS ...]
+#
+# Note: if used in a subshell, failure will only exit the
+# subshell. The command:
+#
+#   myVar=$(try myCommand)
+#
+# will NOT terminate the script if 'myCommand' fails.
+#
+function try
+{
+    if [ -n "$RABOT_VERBOSE" ]; then
+        echo "$@"
+    fi
+
+    "$@"
+    exitOnError "Error when running command: '$*'"
+}
+
+
+############################################################
+#
+# Run a command, and if exit status is nonzero:
+# print an error message.
+#
+# warn COMMAND [ARGS ...]
+#
+function warn
+{
+    if [ -n "$RABOT_VERBOSE" ]; then
+        echo "$@"
+    fi
+
+    "$@"
+
+    if [ "$?" -ne "0" ]; then
+        errcho "Error when running command: '$*'"
+    fi
+}
+
+
+############################################################
+#
+# Run a command with 'try' and on success, push an
+# 'undo' command on the undo stack, to be
+# executed when the script exits.
+#
+# tru UNDO_COMMAND COMMAND [ARGS ...]
+#
+# This allows for the graceful release of a series of
+# acquired resources if an error stops the script.
+#
+# Example:
+#
+# This code, with a syntax error on the 3rd line:
+#
+#   tru "echo Close A" echo Open A
+#   tru "echo Close B" echo Open B
+#   tru "echo Close C" echoX Open C
+#   tru "echo Close D" echo Open D
+#   tru "echo Close E" echo Open E
+#
+# will result in this output:
+#
+#   Open A
+#   Open B
+#   /home/user/tools/rabot/rabot-utils: line 92: echoX: command not found
+#   Error when running command: 'echoX Open C'
+#   Close B
+#   Close A
+#
+function tru
+{
+    try "${@:2}"
+    pushExitCommand "$1"
+}
+
+
+############################################################
+#
+# Internal declarations.
+# When the scripts exits, the array '__undo_stack' is
+# iterated in reverse, and every element executed as a
+# command.
+#
+declare -a __undo_stack
+function __at_exit
+{
+    for (( idx=${#__undo_stack[@]}-1 ; idx>=0 ; idx-- )); do
+        warn ${__undo_stack[idx]}
+    done
+}
+trap "__at_exit" EXIT
+
+
+############################################################
+#
+# Add a command to be executed when the script exits
+# When this function is called multiple times, the commands
+# will be executed in LIFO order.
+#
+# pushExitCommand COMMAND
+#
+# Example:
+#
+#   pushExitCommand "echo The script is exiting ..."
+#
+function pushExitCommand
+{
+    __undo_stack+=("$1")
+}
+
+
+############################################################
+#
+# Pause the script and wait for the user to press a key
+#
+# pause [MESSAGE]
+#
+function pause
+{
+    read -n 1 -s -r -p "${1:-"Press any key to continue ... "}"
+    echo
+}
+
+
+############################################################
+#
+# Prompt for the value of a variable, only if the variable
+# currently has an empty value.
+#
+# promptIfEmpty VARNAME MESSAGE
+#
+# VARNAME: the name of the variable
+# MESSAGE: the message that must be shown before the prompt
+#
+function promptIfEmpty
+{
+    local varName="$1"
+    local varValue=
+    local message="$2"
+
+    if [ -z "${!varName}" ]; then
+        echo -n "$message: " && read varValue
+        declare -g "$varName=$varValue"
+    fi
+}
+
+
+############################################################
+#
+# Trim trailing slash(es) from an argument string, except
+# when the string equals "/". Print the resulting string
+# to stdout.
+#
+# trimTrailingSlash STRING
+#
+# STRING : the argument string
+#
+# A table with examples:
+#
+#   argument        output
+#
+#   abc             abc
+#   abc/            abc
+#   abc/def         abc/def
+#   abc/def/        abc/def
+#   /               /
+#   ////            /
+#   (empty string)  (empty string)
+#
+function trimTrailingSlashes
+{
+    case "$1" in
+        *[!/]*/) echo "${1%"${1##*[!/]}"}";;
+        *[/]) echo "/";;
+        *) echo "$1";;
+    esac
+}
+
+
+############################################################
+#
+# Test if a file path is a member of another path.
+# Print result to stdout.
+#
+# isSubPathOf PATH1 PATH2
+#
+# PATH1 : the candidate path
+# PATH2 : the candidate parent (or grandparent etc...) path
+#
+function isSubPathOf
+{
+    if [ -z "$1" -o -z "$2" ]; then
+        exitWith 1 "Error: the function isSubPathOf requires 2 arguments."
+    fi
+
+    local realPath1="$(readlink -f "$1")"
+    exitOnError "Error when running command: 'readlink -f $1'"
+
+    local realPath2="$(readlink -f "$2")"
+    exitOnError "Error when running command: 'readlink -f $2'"
+
+    local lengthMatched="$(expr match "$realPath1" "$realPath2")"
+
+    [ "$lengthMatched" -eq "${#realPath2}" ]
+}
+
+
+############################################################
+#
+# Chop off base directory from a given subdirectory
+#
+# stripBaseDir DIR BASEDIR
+#
+# DIR : a given subdirectory of a base directory
+# BASEDIR : the base directory
+#
+function stripBaseDir
+{
+    if isSubPathOf "$1" "$2"; then
+        local dir="$(readlink -f "$1")"
+        local baseDir="$(readlink -f "$2")"
+        local stripped=${dir:$(expr match "$dir" "$baseDir")}
+        stripped=${stripped%/}
+        stripped=${stripped#/}
+        echo $stripped
+    fi
+}
+
+
+############################################################
+#
+# Check if a given file is a text file.
+# Return 0 for true and 1 for false
+#
+# isTextFile FILE
+#
+function isTextFile
+{
+    [ "$(file --mime-type "$1" | cut -d':' -f 2 | cut -d'/' -f 1 | sed "s/^[[:space:]]*//g" | sed "s/[[:space:]]*$//g")" = "text" ]
+}
+
+
+############################################################
+#
+# Check if a given directory has no subdirectories
+# Return 0 for true and 1 for false
+#
+# isLeafDir DIR
+#
+function isLeafDir
+{
+    if [ -z "$1" ]; then
+        false
+
+    elif [ ! -d "$1" ]; then
+        false
+
+    elif [ "$(find "$1" -type d | wc -l)" != "1" ]; then
+        false
+
+    else
+        true
+
+    fi
+}
+
+
+############################################################
+#
+# Check if a given directory is empty
+# Return 0 for true and 1 for false
+#
+# isEmptyDir DIR
+#
+function isEmptyDir
+{
+    if [ -z "$1" ]; then
+        false
+
+    elif [ ! -d "$1" ]; then
+        false
+
+    elif [ "$(find "$1" | wc -l)" != "1" ]; then
+        false
+
+    else
+        true
+
+    fi
+}
+
+
+############################################################
+#
+# Check if a given executable is available.
+# Terminate the script when not.
+#
+# require EXEC1 [ EXEC2 ... ]
+#
+function require
+{
+    if [ $# -eq 0 ]; then
+        exitWith 1 "Error: 'require' must have at least 1 argument"
+    fi
+
+    # loop over all arguments
+    for arg; do
+        which "$arg" > /dev/null 2>&1
+        exitOnError "Required command: '$arg' not found"
+    done
+}
+
+
+############################################################
+#
+# Terminate the script when not root
+#
+# requireRoot [MESSAGE]
+#
+# MESSAGE : Optional custom message to print
+#           on stderr when exiting.
+#
+function requireRoot
+{
+    local message="$1"
+    : ${message:="You must be root"}
+
+    if [ "$EUID" -ne 0 ]; then
+    exitWith 1 "$message"
+    fi
+}
+
+
+############################################################
+#
+# Print help if requested on command line
+#
+function checkForHelp
+{
+    if [ "$1" = "--help" ]; then
+        showHelp
+        exit 0
+    fi
+}
+
+
+############################################################
+#
+# Try to acquire a lock. If the lock can't be acquired,
+# wait either indefinitely or for a specified number of
+# seconds.
+#
+# acquireLock LOCKNAME [TIMEOUT_SECONDS]
+#
+# LOCKNAME : the name of the lock
+# TIMEOUT_SECONDS : the amount of time to wait before
+#                   giving up. Can be 0 for immediate
+#                   return.
+#
+# Examples:
+#
+# Try to acquire a lock, and if not (yet) possible,
+# wait indefinitely for it:
+#
+#   acquireLock mylock
+#
+#
+# Try to acquire a lock, and if not (yet) possible,
+# give up immediately:
+#
+#   acquireLock mylock 0
+#
+#
+# Try to acquire a lock, and if not (yet) possible,
+# wait for 5 seconds before giving up:
+#
+#   acquireLock mylock 5
+#
+function acquireLock
+{
+    if [ -z "$1" ]; then
+        exitWith 1 "Error: $FUNCNAME() needs at least one argument."
+    fi
+
+    local lockFile="/tmp/$1"
+    exec {FD}>"$lockFile"
+    trap "flock -u $FD; flock -xn $FD && rm -f $lockFile" EXIT;
+
+    [ -z "$2" ] && local waitArgs="" || local waitArgs="-w $2 "
+    flock -x $waitArgs"$FD"
+}
+
+
+############################################################
+#
+# Allow only one instance of the script running at the time.
+# Exit the script immediately or wait indefinitely if another
+# instance is detected.
+#
+# oneInstance [block]
+#
+# Examples:
+#
+# Exit immediately if another instance is detected:
+#
+#   oneInstance
+#
+#
+# Wait indefinitely until all other instances have terminated:
+#
+#   oneInstance block
+#
+function oneInstance
+{
+    local lockName="$(basename "$0")"
+    [ "$1" = "block" ] && local timeout="" || local timeout="0"
+
+    acquireLock "$lockName" "$timeout"
+    exitOnError "An instance of this script is already running."
+}
+
+
+############################################################
+#
+# Check if the command line has the minimum required number
+# of arguments.
+#
+# minNumArgs MIN ACTUAL
+#
+# MIN : the minimum required number of arguments
+# ACTUAL : The actual number of arguments
+#
+# Example:
+#
+# Exit with an error because 1 < 2
+#
+#   minNumArgs 2 1
+#
+function minNumArgs
+{
+    if [ "$2" -lt "$1" ]; then
+        errcho "$(basename "$0"): missing operand"
+        exitWith 1 "Try '$(basename "$0") --help' for more information."
+    fi
+}
+
+
+############################################################
+#
+# Reset color in the bash terminal.
+# See functions below for examples
+#
+function fg0
+{
+    echo "\e[0m"
+}
+
+
+############################################################
+#
+# Select one of the colors from the 16-color palette
+#
+# Example:
+#
+# This will print the word 'are' in yellow:
+#
+#   echo -e How $(fg16 3)are$(fg0) you?
+#
+function fg16
+{
+    echo "\e[$(expr $1 / 8);$(expr 30 + $(expr $1 % 8))m"
+}
+
+
+############################################################
+#
+# Select one of the colors from the 256-color palette
+#
+# Example:
+#
+# This will print the word 'are' in "Gold3":
+#
+#   echo -e How $(fg256 178)are$(fg0) you?
+#
+function fg256
+{
+    echo "\e[38;5;$1m"
+}
+
+
+############################################################
+#
+# Select a color by specifying its RGB values
+#
+# Example:
+#
+# This will print the word 'are' in some kind of green:
+#
+#   echo -e How $(fgRGB 20 240 120)are$(fg0) you?
+#
+function fgRGB
+{
+    echo "\\e[38;2;$1;$2;$3m"
+}
+
+
+
+############################################################
+#
+# Helper function for elapsedTime. Echo WORD with an
+# additional 's' if VALUE differs from 1.
+#
+# makePlural WORD VALUE
+#
+function makePlural
+{
+    if [ "$2" != "1" ]; then
+        echo "$1s"
+    else
+        echo "$1"
+    fi
+}
+
+
+############################################################
+#
+# Echo the elapsed time between two given moments
+# in a human-readable format.
+#
+# elapsedTime START END [LONG]
+#
+# START : the start time in seconds
+# END : the end time in seconds
+# LONG : use the long format (the argument value can be anything)
+#
+# Examples:
+#
+# $ elapsedTime 10 1000
+# 16m 30s
+#
+# $ elapsedTime 10 1234567 L
+# 14 days 6 hours 55 minutes and 57 seconds
+#
+function elapsedTime
+{
+    if [ -z "$2" ]; then
+        exitWith 1 "Error: $FUNCNAME() needs at least two arguments."
+    fi
+
+    local T=$(expr $2 - $1)
+    local D=$((T/60/60/24))
+    local H=$((T/60/60%24))
+    local M=$((T/60%60))
+    local S=$((T%60))
+
+    if [ -n "$3" ]; then
+        local ds=" $(makePlural day "$D") "
+        local hs=" $(makePlural hour "$H") "
+        local ms=" $(makePlural minute "$M") "
+        local as="and "
+        local ss=" $(makePlural second "$S")"
+    else
+        local ds="d "
+        local hs="h "
+        local ms="m "
+        local as=""
+        local ss="s"
+    fi
+
+    (( $D > 0 )) && echo -n "$D$ds"
+    (( $H > 0 )) && echo -n "$H$hs"
+    (( $M > 0 )) && echo -n "$M$ms"
+    (( $D > 0 || $H > 0 || $M > 0 )) && echo -n "$as"
+
+    echo "$S$ss"
+}
+
+
+############################################################
+#
+# Look for all executable files in a directory tree and
+# call them one by one with the option '--help'.
+# In between the resulting output, markup is added in
+# the reStructuredText format.
+#
+# allHelp DIR
+#
+function allHelp
+{
+    local name=
+
+    local fullname=
+    while read fullname; do
+        name="$(basename "$fullname")"
+        echo $name
+        echo $name | tr [:print:] '-'
+        echo ::
+        echo
+        $fullname --help | sed "s/^/  /" | sed "s/[[:space:]]*$//"
+        echo
+    done < <(fnd $1 -executable ! -type d | sort)
+}
+
+
+############################################################
+#
+# Print the directory where rabot is installed
+#
+# rabotInstallDir
+#
+function rabotInstallDir
+{
+    echo $(dirname "$(which rabot-here)")
+}
+
+
+############################################################
+#
+# Construct path to new logfile and re-target the
+# 'latest.txt' symlink to it.
+# Print the path to the logfile on stdout.
+#
+# newLogfile
+#
+function newLogfile
+{
+    # Set logDir, unless already done (as in 'logopd')
+    : ${logDir:="${RABOT_LOGDIR:-"$HOME/log"}"}
+
+    try mkdir -p "$logDir"
+
+    local fileName="$(timestamp-id).txt"
+    local filePath="$logDir/$fileName"
+
+    # Update symlink 'latest.txt' to point to latest logfile
+    ln -sf "$fileName" "$logDir/latest.txt"
+
+    echo "$filePath"
+}
