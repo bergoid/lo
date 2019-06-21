@@ -1,10 +1,16 @@
+tmux list-panes -aF "#{session_id} #{window_id} #{pane_id} #{pane_title}" | grep "^$(tmux display-message -p "#{session_id}")"
+
+tmux list-panes -a -F 'session_id: #{session_id}, session_name: #{session_name}, window_id: #{window_id}, window_name: #{window_name}, pane_id: #{pane_id}, pane_title: #{pane_title}'
+
+. 'lo' identify a pane by title instead of by $(getCurrentPane)
+
 . write bash function that prints a hierarchical overview of:
     . tmux sessions
         . their windows
             .their panes
 
-. master pane
-    . name: lo-master
+. monitor pane
+    . name: lo-monitor
     . top right
     . 25% height
     . make position configurable
@@ -34,7 +40,7 @@
     . 'behold' should be able to switch automatically from 'follow' to 'reload' when the first match is  found.
 
 . check if already in 'lo' session
-    . check for the existence of a pane called 'lo-master'
+    . check for the existence of a pane called 'lo-monitor'
         . optionally: 'lo-edit'?
 
 . behold.vim still allows: ':w!'

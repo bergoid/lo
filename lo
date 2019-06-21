@@ -27,57 +27,7 @@ DOCSTRING
 }
 
 checkForHelp $1
-
-############################################################
-#
-# List all tmux session names on stdout,
-# one session per line
-#
-# listSessions
-#
-function listSessions
-{
-    tmux list-sessions -F "#{session_name}"
-}
-
-############################################################
-#
-# List all windows of a given tmux session on stdout,
-# one window per line
-#
-# listWindows SESSION
-#
-function listWindows
-{
-    try test -n "$1"
-    tmux list-windows -F "#{window_name}" -t "$1"
-}
-
-############################################################
-#
-# List all panes of a given tmux window on stdout,
-# one pane per line
-#
-# listPanes
-#
-function listPanes
-{
-    try test -n "$1"
-    tmux list-panes -F "#{pane_index}" -t "$1"
-}
-
-
-############################################################
-#
-# Print the number of windows in the current session
-#
-# numWindows
-#
-function numWindows
-{
-    try test -n "$TMUX"
-    tmux display-message -p "#{session_windows}"
-}
+require tmux
 
 
 ############################################################
@@ -92,6 +42,27 @@ function numPanes
     tmux display-message -p "#{window_panes}"
 }
 
+
+############################################################
+#
+# List all panes in current session, or in specified window only.
+# On one line for every pane, print: window_id pane_id pane_title.
+#
+# listPanes [WINDOW_ID]
+#
+# WINDOW_ID : if specified, print only panes belonging to WINDOW_ID
+#
+function listPanes
+{
+    try test -n "$TMUX"
+
+    if [ -n "$1" ]; then
+        tmux list-panes -F "#{window_id} #{pane_id} #{pane_title}" -t "$1"
+    else
+        tmux list-panes -sF "#{window_id} #{pane_id} #{pane_title}"
+    fi
+}
+
 # Write stdin to logfile
 logop <&0  > /dev/null &
 
@@ -102,40 +73,54 @@ if [ -z "$TMUX" ]; then
 
 else
 
-    # If in a tmux session: check the number of windows & panes
-    if [ $(numWindows) -gt 1 ]; then
-        errcho "ERROR: '$(basename "$0")' must started from a tmux session with at most 1 window"
-        errcho "Current number of windows: $(numWindows)"
-        exit 1
+    local windowName="$(tmux display-message -p "#{window_name}")"
+
+    # If in a tmux session: check if we are in a 'lo' session
+    if [ "$windowName" = "lo-front" ]; then
+
+        editPaneID="$(listPanes | grep lo-edit | cut -d ' ' -f 1)"
+        outputPaneID="$(listPanes | grep lo-output | cut -d ' ' -f 1)"
+
+        try test -n "$editPanelID"
+        try test -n "$outputPanelID"
+
+    else
+
+        if [ $(numPanes) -gt 2 ]; then
+            errcho "ERROR: '$(basename "$0")' must be started from a tmux session with at most 2 panes"
+            errcho "Current number of panes: $(numPanes)"
+            exit 1
+        fi
+
+        # Rename the current window to 'lo-front'
+        try tmux rename-window lo-front
+
+        # Create a second pane, if absent
+        if [ $(numPanes) -lt 2 ]; then
+            # -h : split horizontally
+            # -d : don't switch focus to new pane
+            # -p 50 : split evenly (50%)
+            # "bash" : run "bash" in new window
+            try tmux split-window -h -d -p 50 "bash"
+        fi
+
+        # Set the title of the current pane
+        try tmux select-pane -T lo-edit
+
+        # Start vim in edit pane
+        editPaneID="$(getCurrentPaneID)"
+        try tmux send-keys -t "$editPaneID" "vim" Enter
+
+        # Set the title of the other pane, and switch to it
+        outputPaneID="$(getOtherPaneID)"
+        try tmux select-pane -T lo-output -t "$outputPaneID"
+        try tmux select-pane -t "$outputPaneID"
+
     fi
-
-    if [ $(numPanes) -gt 2 ]; then
-        errcho "ERROR: '$(basename "$0")' must started from a tmux session with at most 2 panes"
-        errcho "Current number of panes: $(numPanes)"
-        exit 1
-    fi
-
-    # Create a second pane, if absent
-    if [ $(numPanes) -lt 2 ]; then
-        # -h : split horizontally
-        # -d : don't switch focus to new pane
-        # -p 50 : split evenly (50%)
-        tmux split-window -h -d -p 50 "bash"
-    fi
-
-    # Set the title of the current pane
-    tmux select-pane -T lo-edit
-
-    # Start vim in edit pane
-    tmux send-keys -t $(getCurrentPaneIndex) "vim" Enter
-
-    # Set the title of the other pane, and switch to it
-    tmux select-pane -T lo-output -t $(getOtherPaneIndex)
-    tmux select-pane -t $(getOtherPaneIndex)
 
 fi
 
 # Start 'less +F ...' in output pane
-tmux send-keys -t $(getCurrentPaneIndex) ". lo-utils" Enter
-tmux send-keys -t $(getCurrentPaneIndex) "sleep 1; ~/prj/lo/behold +F ~/log/latest.txt" Enter
+try tmux send-keys -t  "$outputPaneID" ". lo-utils" Enter
+try tmux send-keys -t  "$outputPaneID" "sleep 1; ~/prj/lo/behold +F ~/log/latest.txt" Enter
 
