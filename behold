@@ -16,7 +16,7 @@ Usage: $(basename "$0") [+F] [FILENAME]
 The contents of FILENAME are shown.
 The argument '+F' instructs '$(basename "$0")' to keep reading from
 FILENAME. This behavior can be switched off in the program by pressing
-'Ctrl-c', and switched on by pressing 'F'.
+'Ctrl-c', and switched on again by pressing 'F'.
 DOCSTRING
 }
 

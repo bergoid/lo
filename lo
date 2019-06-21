@@ -29,6 +29,33 @@ DOCSTRING
 checkForHelp $1
 require tmux
 
+# Obain path to parent dir
+export PARENT_DIR="$(dirname $(readlink -f "$0"))"
+
+
+############################################################
+#
+# Get ID of the current pane
+#
+# getCurrentPaneIndex
+#
+function getCurrentPaneID
+{
+    tmux display-message -p "#{pane_id}"
+}
+
+
+############################################################
+#
+# Get ID of other pane than current one
+#
+# getOtherPaneID
+#
+function getOtherPaneID
+{
+    tmux list-panes -F "#{pane_id}" | grep -v $(getCurrentPaneID)
+}
+
 
 ############################################################
 #
@@ -111,9 +138,20 @@ else
         editPaneID="$(getCurrentPaneID)"
         try tmux send-keys -t "$editPaneID" "vim" Enter
 
-        # Set the title of the other pane, and switch to it
+        # Set the title of the other pane to 'lo-output'
         outputPaneID="$(getOtherPaneID)"
         try tmux select-pane -T lo-output -t "$outputPaneID"
+
+        # Switch focus to 'lo-output'
+        try tmux select-pane -t "$outputPaneID"
+
+        # Split off monitor pane from output pane
+        try tmux split-window -vdb -p 25 -t "$outputPaneID" "vim -R -u monitor.vim"
+
+        # Monitor pane is the current one. Set its title.
+        try tmux select-pane -T lo-monitor
+
+        # Switch focus to 'lo-output' again
         try tmux select-pane -t "$outputPaneID"
 
     fi
@@ -123,4 +161,3 @@ fi
 # Start 'less +F ...' in output pane
 try tmux send-keys -t  "$outputPaneID" ". lo-utils" Enter
 try tmux send-keys -t  "$outputPaneID" "sleep 1; ~/prj/lo/behold +F ~/log/latest.txt" Enter
-

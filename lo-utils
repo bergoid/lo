@@ -2,28 +2,23 @@
 
 #[ -n "$LO_UTILS" ] && return || readonly LO_UTILS=1
 
-
-############################################################
-#
-# Get index of the current pane
-#
-# getCurrentPaneIndex
-#
-function getCurrentPaneID
-{
-    tmux display-message -p "#{pane_id}"
-}
+. rabot-utils
+if [ "$?" -ne "0" ]; then
+  echo "$0: Error while sourcing rabot-utils" >&2
+  exit 1
+fi
 
 
 ############################################################
 #
-# Get index of other pane than current one
+# Get ID of the pane with the given title
 #
-# getOtherPaneID
+# getPaneID PANE_TITLE
 #
-function getOtherPaneID
+function getPaneID
 {
-    tmux list-panes -F "#{pane_id}" | grep -v $(getCurrentPaneID)
+    try test -n "$1"
+    tmux list-panes -F "#{pane_id} #{pane_title}" | grep "$1" | cut -d ' ' -f 1
 }
 
 
@@ -38,12 +33,11 @@ function gotoPalico
     local column="${3:-0}"
 
     if [ -n "$path" ]; then
-        tmux send-keys -t $(getOtherPaneID) ":e $path|call cursor($line,$column)|norm zz" Enter
+        tmux send-keys -t $(getPaneID lo-edit) ":e $path|call cursor($line,$column)|norm zz" Enter
     fi
 }
 
-export -f getCurrentPaneID
-export -f getOtherPaneID
+export -f getPaneID
 export -f gotoPalico
 
 

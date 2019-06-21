@@ -6,7 +6,7 @@ endfunction
 " Allow character sequences like '<CR>' to be treated specially
 set nocompatible
 
-call Include($BEHOLD_DIR . '/ansi2key.vim')
+"call Include($BEHOLD_DIR . '/ansi2key.vim')
 
 " Map key to a sequence in all modes
 function Mapam(key, sequence)
