@@ -1,0 +1,13 @@
+Hello this is an argument test
+
+
+
+
+to see if shell commands with args can be
+
+
+given when creating a tmux pane.
+
+
+
+END

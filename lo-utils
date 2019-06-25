@@ -11,14 +11,32 @@ fi
 
 ############################################################
 #
-# Get ID of the pane with the given title
+# Get ID of the pane with the given title, or the current pane
 #
-# getPaneID PANE_TITLE
+# getPaneID [PANE_TITLE]
 #
 function getPaneID
 {
-    try test -n "$1"
-    tmux list-panes -F "#{pane_id} #{pane_title}" | grep "$1" | cut -d ' ' -f 1
+    if [ -n "$1" ]; then
+        tmux list-panes -F "#{pane_id} #{pane_title}" | grep "${1}$" | cut -d ' ' -f 1
+    else
+        tmux display-message -p "#{pane_id}"
+    fi
+}
+
+############################################################
+#
+# Get ID of the window with the given name, or the current window
+#
+# getWindowID [WINDOW_NAME]
+#
+function getWindowID
+{
+    if [ -n "$1" ]; then
+        tmux list-windows -F "#{window_id} #{window_name}" | grep "${1}$" | cut -d ' ' -f 1
+    else
+        tmux display-message -p "#{window_id}"
+    fi
 }
 
 

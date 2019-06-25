@@ -1,0 +1,25 @@
+#!/bin/bash
+
+. rabot-utils
+if [ "$?" -ne "0" ]; then
+  echo "$0: Error while sourcing rabot-utils" >&2
+  exit 1
+fi
+
+function showHelp
+{
+cat << DOCSTRING
+Usage: $(basename "$0")
+
+'$(basename "$0")' starts the monitor process of a 'lo' session.
+DOCSTRING
+}
+
+checkForHelp $1
+
+# Obain path to parent dir
+PARENT_DIR="$(dirname $(readlink -f "$0"))"
+
+. $PARENT_DIR/lo-utils
+
+vim -R -u monitor.vim

@@ -1,3 +1,25 @@
+
+. when starting 'lo' from a non-'lo' tmux session:
+    . store the window_id of the current pre-'lo' window in a variable: preLoWindowID
+    . create a 'lo-front' window in the background
+        . split this window into 3 panes:
+            . lo-monitor
+            . lo-output
+                . R pane is a 'behold' pane, not a 'behold-started-from-bash' pane
+            . lo-edit
+                . L pane is a 'vim' pane, not a 'vim-started-from-bash' pane
+    . create a 'lo-back' window in the background
+        . name its pane 'lo-placeholder'
+        . use some light-weight shell-command in 'lo-placeholder'
+            --> maybe runs in a bash subshell anyway, so we can just as well
+                use an interactive bash shell (the default-command) ?
+    . leave all existing pre-'lo' windows unchanged
+    . 'select-window' 'lo-front'
+    . when 'lo' exits:
+        . 'select-window' -t "$preLoWindowID"
+        . 'kill-window' all 'lo' windows
+
+
 . monitor pane
     . name: lo-monitor
     . top right
