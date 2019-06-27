@@ -9,5 +9,3 @@ set noshowcmd
 
 " Disable vim command-line
 nnoremap : <Nop>
-
-

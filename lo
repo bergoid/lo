@@ -102,7 +102,7 @@ if [ -z "$TMUX" ]; then
 
 else
 
-    local windowName="$(tmux display-message -p "#{window_name}")"
+    windowName="$(tmux display-message -p "#{window_name}")"
 
     # If in a tmux session: check if we are in a 'lo' session
     if [ "$windowName" = "lo-front" ]; then
@@ -131,12 +131,12 @@ else
         try tmux select-pane -T lo-edit -t "$editPaneID"
 
         # Split off output pane from edit pane
-        outputPaneID=$(tmux split-window -hdP -p 50 -t "$editPaneID" -F "#{pane_id}" "less +F $PARENT_DIR/argtest.txt")
+        outputPaneID="$(tmux split-window -hdP -F "#{pane_id}" -p 50 -t "$editPaneID" "less +F $PARENT_DIR/argtest.txt")"
         try test -n "$outputPaneID"
         try tmux select-pane -T lo-output -t "$outputPaneID"
 
         # Split off monitor pane from output pane
-        monitorPaneID=$(tmux split-window -vdb -p 25 -t "$outputPaneID" "$PARENT_DIR/monitor"
+        monitorPaneID="$(tmux split-window -vdbP -F "#{pane_id}" -p 25 -t "$outputPaneID" "$PARENT_DIR/monitor")"
         try test -n "$monitorPaneID"
         try tmux select-pane -T lo-monitor -t "$monitorPaneID"
 
@@ -148,60 +148,15 @@ else
         # The pane auto-created with the lo-back window is the 'lo-placeholder' pane
         placeholderPaneID="$(echo "$windowAndPane" | cut -d ' ' -f 2)"
         try test -n "$placeholderPaneID"
-        try tmux select-pane -T lo-edit -t "$placeholderPaneID"
+        try tmux select-pane -T lo-placeholder -t "$placeholderPaneID"
 
-        # TODO : switch to 'lo-front' window
-
-
-
-
-#
-#        # Rename the current window to 'lo-back'
-#        try tmux rename-window lo-back
-#
-#        # Create 'lo-front' window in the background
-#        try tmux new-window -d -n lo-front
-#
-#        try tmux split-window -h -d -p 50 "bash"
-#
-#
-#        # Create a second pane, if absent
-#        if [ $(numPanes) -lt 2 ]; then
-#            # -h : split horizontally
-#            # -d : don't switch focus to new pane
-#            # -p 50 : split evenly (50%)
-#            # "bash" : run "bash" in new window
-#            try tmux split-window -h -d -p 50 "bash"
-#        fi
-#
-#        # Set the title of the current pane
-#        try tmux select-pane -T lo-edit
-#
-#        # Start vim in edit pane
-#        editPaneID="$(getCurrentPaneID)"
-#        try tmux send-keys -t "$editPaneID" "vim" Enter
-#
-#        # Set the title of the other pane to 'lo-output'
-#        outputPaneID="$(getOtherPaneID)"
-#        try tmux select-pane -T lo-output -t "$outputPaneID"
-#
-#        # Switch focus to 'lo-output'
-#        try tmux select-pane -t "$outputPaneID"
-#
-#        # Split off monitor pane from output pane
-##        try tmux split-window -vdb -p 25 -t "$outputPaneID" "vim -R -u monitor.vim"
-#        try tmux split-window -vdb -p 25 -t "$outputPaneID" "$PARENT_DIR/monitor"
-#
-#        # Monitor pane is the current one. Set its title.
-#        try tmux select-pane -T lo-monitor
-#
-#        # Switch focus to 'lo-output' again
-#        try tmux select-pane -t "$outputPaneID"
+        # Switch to 'lo-front' window
+        try tmux select-window -t "$frontWindowID"
 
     fi
 
 fi
 
 # Start 'less +F ...' in output pane
-try tmux send-keys -t  "$outputPaneID" ". lo-utils" Enter
-try tmux send-keys -t  "$outputPaneID" "sleep 1; $PARENT_DIR/behold +F ~/log/latest.txt" Enter
+#try tmux send-keys -t  "$outputPaneID" ". lo-utils" Enter
+#try tmux send-keys -t  "$outputPaneID" "sleep 1; $PARENT_DIR/behold +F ~/log/latest.txt" Enter
