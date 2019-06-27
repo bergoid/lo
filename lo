@@ -95,17 +95,13 @@ function listPanes
 # Write stdin to logfile
 logop <&0  > /dev/null &
 
-# If not in a tmux session: abort
-if [ -z "$TMUX" ]; then
+# Check if we are already in a tmux session
+if [ -n "$TMUX" ]; then
 
-    exitWith 1 "ERROR: '$(basename "$0")' needs to be run inside 'tmux'"
-
-else
-
-    windowName="$(tmux display-message -p "#{window_name}")"
+    sessionName="$(tmux display-message -p "#{session_name}")"
 
     # If in a tmux session: check if we are in a 'lo' session
-    if [ "$windowName" = "lo-front" ]; then
+    if [ "$sessionName" = "lo" ]; then
 
         editPaneID="$(listPanes | grep lo-edit | cut -d ' ' -f 1)"
         outputPaneID="$(listPanes | grep lo-output | cut -d ' ' -f 1)"
@@ -113,21 +109,26 @@ else
         try test -n "$editPanelID"
         try test -n "$outputPanelID"
 
-    else
+        # TODO : skip creation of new tmux session
 
-        # We are in a tmux session, but not yet a 'lo' session
+    fi
 
-        # Store current window ID
-        preLoWindowID=$(getWindowID)
+fi
 
-        # Create 'lo-front' window in the background
-        windowAndPane="$(tmux new-window -dP -F "#{window_id} #{pane_id}" -n lo-front "vim")"
-        frontWindowID="$(echo "$windowAndPane" | cut -d ' ' -f 1)"
+# Create a new tmux session, populate it with 'lo' windows & panes
+
+        # Create a new tmux session in the background
+        sessionWindowPane="$(tmux new-session -dP -F "#{session_id} #{window_id} #{pane_id}" -n lo-front -s lo "vim")"
+
+        # Obtain the IDs of the session and its auto-created window & pane
+        sessionID="$(echo "$sessionWindowPane" | cut -d ' ' -f 1)"
+        frontWindowID="$(echo "$sessionWindowPane" | cut -d ' ' -f 2)"
+        editPaneID="$(echo "$sessionWindowPane" | cut -d ' ' -f 3)"
+        try test -n "$sessionID"
         try test -n "$frontWindowID"
-
-        # The pane auto-created with the lo-front window is the 'lo-edit' pane
-        editPaneID="$(echo "$windowAndPane" | cut -d ' ' -f 2)"
         try test -n "$editPaneID"
+
+        # Set the title of the edit pane
         try tmux select-pane -T lo-edit -t "$editPaneID"
 
         # Split off output pane from edit pane
@@ -141,21 +142,20 @@ else
         try tmux select-pane -T lo-monitor -t "$monitorPaneID"
 
         # Create 'lo-back' window in the background
-        windowAndPane="$(tmux new-window -dP -F "#{window_id} #{pane_id}" -n lo-back)"
+        windowAndPane="$(tmux new-window -dP -F "#{window_id} #{pane_id}" -n lo-back -t "$sessionID")"
         backWindowID="$(echo "$windowAndPane" | cut -d ' ' -f 1)"
         try test -n "$backWindowID"
 
-        # The pane auto-created with the lo-back window is the 'lo-placeholder' pane
+        # Set the title of the placeholder pane
         placeholderPaneID="$(echo "$windowAndPane" | cut -d ' ' -f 2)"
         try test -n "$placeholderPaneID"
         try tmux select-pane -T lo-placeholder -t "$placeholderPaneID"
 
-        # Switch to 'lo-front' window
-        try tmux select-window -t "$frontWindowID"
-
-    fi
-
-fi
+        if [ -n "$TMUX" ]; then
+            tmux switch-client -t "$sessionID"
+        else
+            tmux attach-session -t "$sessionID"
+        fi
 
 # Start 'less +F ...' in output pane
 #try tmux send-keys -t  "$outputPaneID" ". lo-utils" Enter
