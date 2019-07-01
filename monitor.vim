@@ -1,6 +1,3 @@
-" Disallow all editing
-set nomodifiable
-
 " Disable ruler
 set noshowmode
 set noruler
