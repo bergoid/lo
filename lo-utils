@@ -24,6 +24,7 @@ function getPaneID
     fi
 }
 
+
 ############################################################
 #
 # Get ID of the window with the given name, or the current window
@@ -37,6 +38,19 @@ function getWindowID
     else
         tmux display-message -p "#{window_id}"
     fi
+}
+
+
+############################################################
+#
+# Send a string to the monitor process
+#
+#  sendStringToMonitor [STRING]
+#
+function sendStringToMonitor
+{
+    : ${monitorId:=$(getPaneID lo-monitor)}
+    tmux send-keys -t "$monitorId" ",k$1" Enter
 }
 
 
@@ -57,5 +71,6 @@ function gotoPalico
 
 export -f getPaneID
 export -f gotoPalico
+export -f sendStringToMonitor
 
 

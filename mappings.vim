@@ -1,4 +1,20 @@
-"" Recursively map key to a sequence in all modes
+" Allow character sequences like '<CR>' to be treated specially
+set nocompatible
+
+" Map key to a sequence in all modes
+function Mapam(key, sequence)
+    let seq_esc = a:sequence
+"    execute 'nnoremap ' . a:key . ' ' . seq_esc
+"    execute 'inoremap ' . a:key . ' <esc>' . seq_esc
+"    execute 'vnoremap ' . a:key . ' <esc><esc>' . seq_esc
+"    execute 'cnoremap ' . a:key . ' <esc><esc>' . seq_esc
+    execute 'nnoremap <silent>' . a:key . ' ' . seq_esc
+    execute 'inoremap <silent>' . a:key . ' <esc>' . seq_esc
+    execute 'vnoremap <silent>' . a:key . ' <esc><esc>' . seq_esc
+    execute 'cnoremap <silent>' . a:key . ' <esc><esc>' . seq_esc
+endfunction
+
+" Recursively map key to a sequence in all modes
 function RMapam(key, sequence)
     let seq_esc = a:sequence
     execute 'nmap ' . a:key . ' ' . seq_esc

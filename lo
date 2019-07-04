@@ -121,7 +121,8 @@ else
     # in the background and then switch to it
 
     # Create a new tmux session in the background
-    sessionWindowPane="$(tmux new-session -dP -F "#{session_id} #{window_id} #{pane_id}" -n lo-front -s lo -x "$(tput cols)" -y "$(tput lines)" "vim")"
+#    sessionWindowPane="$(tmux new-session -dP -F "#{session_id} #{window_id} #{pane_id}" -n lo-front -s lo -x "$(tput cols)" -y "$(tput lines)" "vim")"
+    sessionWindowPane="$(tmux new-session -dP -F "#{session_id} #{window_id} #{pane_id}" -n lo-front -s lo -x "$(tput cols)" -y "$(tput lines)")"
 
     # Obtain the IDs of the session and its auto-created window & pane
     sessionID="$(echo "$sessionWindowPane" | cut -d ' ' -f 1)"
@@ -140,7 +141,8 @@ else
     try tmux select-pane -T lo-output -t "$outputPaneID"
 
     # Split off monitor pane from output pane
-    monitorPaneID="$(tmux split-window -vdbP -l 5 -t "$outputPaneID" "$PARENT_DIR/do-monitor" -F "#{pane_id}")"
+#    monitorPaneID="$(tmux split-window -vdbP -l 5 -t "$outputPaneID" "$PARENT_DIR/do-monitor" -F "#{pane_id}")"
+    monitorPaneID="$(tmux split-window -vdbP -p 50 -t "$outputPaneID" "$PARENT_DIR/do-monitor" -F "#{pane_id}")"
     try test -n "$monitorPaneID"
     try tmux select-pane -T lo-monitor -t "$monitorPaneID"
 

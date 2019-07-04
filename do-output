@@ -17,10 +17,10 @@ DOCSTRING
 
 checkForHelp $1
 
-# Obain path to parent dir
-PARENT_DIR="$(dirname $(readlink -f "$0"))"
+# Obtain path to parent dir
+export PARENT_DIR="$(dirname $(readlink -f "$0"))"
 
-#. $PARENT_DIR/lo-utils
+. $PARENT_DIR/lo-utils
 
 sleep 1;
 $PARENT_DIR/behold +F ~/log/latest.txt

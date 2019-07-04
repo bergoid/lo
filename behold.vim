@@ -6,18 +6,7 @@ endfunction
 " Allow character sequences like '<CR>' to be treated specially
 set nocompatible
 
-"call Include($BEHOLD_DIR . '/ansi2key.vim')
-
-" Map key to a sequence in all modes
-function Mapam(key, sequence)
-    let seq_esc = a:sequence
-    execute 'nnoremap <silent>' . a:key . ' ' . seq_esc
-    execute 'inoremap <silent>' . a:key . ' <esc>' . seq_esc
-    execute 'vnoremap <silent>' . a:key . ' <esc><esc>' . seq_esc
-    execute 'cnoremap <silent>' . a:key . ' <esc><esc>' . seq_esc
-endfunction
-
-call Include($BEHOLD_DIR . '/ansi2key.vim')
+call Include($BEHOLD_DIR . '/mappings.vim')
 
 " Disallow all editing
 set nomodifiable
@@ -92,8 +81,15 @@ function SearchPalico(dir)
     endif
 endfunction
 
-" Mappings
-call Mapam('<F6>', ':call SearchPalico("")<CR>')
+"
+function SendString(str)
+    silent let a=system('sendStringToMonitor ' . a:str)
+endfunction
 
-call Mapam('<S-F6>', ':call SearchPalico("b")<CR>')
+" Mappings
+"call Mapam('<F6>', ':call SearchPalico("")<CR>')
+"
+"call Mapam('<S-F6>', ':call SearchPalico("b")<CR>')
+
+call Mapam('<F6>', ':call SendString("f6")')
 

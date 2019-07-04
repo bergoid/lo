@@ -1,11 +1,11 @@
+. BUG: first keypress of 'f6' does nothing
 
 . monitor pane
-    . name: lo-monitor
-    . top right
-    . 25% height
+    v name: lo-monitor
+    v top right
     . make position configurable
-    . run vim inside the pane
-        . lo-master.vim
+    v run vim inside the pane
+        v monitor.vim
     . auto resize pane to total number of lines
     . accept key sequences
         . leader key
@@ -18,6 +18,12 @@
                 . F2: ",f2<Enter>"
                 . Shift-F6: ",sf6<Enter>"
                 . Alt-F7: ",mf7<Enter>"
+    . show list of processes, each belonging to another pane that can be swapped into the "output pane" position
+    . every process on another line. Each line containing:
+        . the exit status of the process, or 3 spaces if not yet finished
+        . the full path to the executable
+        . all arguments passed when starting the process
+    . when another line in the monitor is selected, the current output pane is swapped out for the selected one
 
 . check if already in 'lo' session
     . check for the existence of a pane called 'lo-monitor'

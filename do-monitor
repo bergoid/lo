@@ -18,7 +18,7 @@ DOCSTRING
 checkForHelp $1
 
 # Obain path to parent dir
-PARENT_DIR="$(dirname $(readlink -f "$0"))"
+export PARENT_DIR="$(dirname $(readlink -f "$0"))"
 
 . $PARENT_DIR/lo-utils
 
