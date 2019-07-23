@@ -11,15 +11,15 @@ function showHelp
 cat << DOCSTRING
 Usage: $(basename "$0")
 
-'$(basename "$0")' starts the monitor process of a 'lo' session.
+'$(basename "$0")' starts the edit process of a 'lo' session.
 DOCSTRING
 }
 
 checkForHelp $1
 
-# Obain path to parent dir
+# Obtain path to parent dir
 export PARENT_DIR="$(dirname $(readlink -f "$0"))"
 
 . $PARENT_DIR/lo-utils
 
-vim -u $PARENT_DIR/monitor.vim
+vim -u $PARENT_DIR/edit.vim

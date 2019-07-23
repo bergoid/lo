@@ -1,12 +1,5 @@
-" Function key mappings
-function! Include(filename)
-    execute 'source ' . a:filename
-endfunction
-
-" Allow character sequences like '<CR>' to be treated specially
-set nocompatible
-
-call Include($BEHOLD_DIR . '/mappings.vim')
+" Map ANSI escape sequences to functions keys + modifier keys
+execute 'source' . $PARENT_DIR . '/mappings.vim'
 
 " Disallow all editing
 set nomodifiable
@@ -44,6 +37,9 @@ endfunction
 
 " Stop tailing current file
 function StopTailing()
+    " BEGIN TESTCODE
+    silent let b=system('logMessage StopTailing')
+    " END TESTCODE
     call timer_stop(g:tailTimer)
     set statusline=NOT_FOLLOWING
 endfunction
@@ -82,14 +78,14 @@ function SearchPalico(dir)
 endfunction
 
 "
-function SendString(str)
-    silent let a=system('sendStringToMonitor ' . a:str)
-endfunction
+"function SendString(str)
+"    " BEGIN TESTCODE
+""    silent let b=system('logMessage ' . a:str)
+"    " END TESTCODE
+"
+"    silent let a=system('sendStringToMonitor ' . a:str)
+"endfunction
 
 " Mappings
-"call Mapam('<F6>', ':call SearchPalico("")<CR>')
-"
-"call Mapam('<S-F6>', ':call SearchPalico("b")<CR>')
-
-call Mapam('<F6>', ':call SendString("f6")')
-
+call Mapam('<F6>', ':call SearchPalico("")<CR>')
+call Mapam('<S-F6>', ':call SearchPalico("b")<CR>')

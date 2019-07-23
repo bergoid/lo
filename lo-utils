@@ -43,14 +43,83 @@ function getWindowID
 
 ############################################################
 #
-# Send a string to the monitor process
+# Send a sequence of keypresses to a tmux pane
 #
-#  sendStringToMonitor [STRING]
+# sendKeysToPane PANE KEYS
 #
-function sendStringToMonitor
+# PANE : a string identifying the pane
+#   possible values:
+#       "edit": the edit pane
+#       "output": the (current) output pane
+#   any other string will be considered to mean the monitor pane
+#
+# KEYS : the key sequence
+#
+function sendKeysToPane
+{
+    logMessage "sendKeysToPane $1 $2"
+
+    if [ -z "$2" ]; then
+        logMessage "ERROR: sendKeysToPane: empty key sequence"
+        if [ -z "$1" ]; then
+            logMessage "ERROR: sendKeysToPane: empty pane ID/title"
+        fi
+        return
+    fi
+
+    local paneIdVar=
+
+    case "$1" in
+        "edit") paneIdVar="@editPaneID";;
+        "output") paneIdVar="@outputPaneID";;
+        *) paneIdVar="@monitorPaneID";;
+    esac
+
+    tmux send-keys -t "$(tmux show-options -v $paneIdVar)" "$2"
+}
+
+############################################################
+#
+# Send a command to the monitor process
+#
+#  sendCommandToMonitor PREFIX PAYLOAD
+#
+#  PREFIX : a character indicating the type of command
+#           Possible values:
+#               p : in the editor, show the location: path:line:column
+#                   as indicated by PAYLOAD
+#
+#  PAYLOAD : the command payload
+#
+function sendCommandToMonitor
 {
     : ${monitorId:=$(getPaneID lo-monitor)}
-    tmux send-keys -t "$monitorId" ",k$1" Enter
+
+    if [ -z "$2" ]; then
+
+        logMessage "ERROR: sendCommandToMonitor: empty payload"
+
+        if [ -z "$1" ]; then
+
+            logMessage "ERROR: sendCommandToMonitor: empty prefix"
+
+        fi
+
+        return
+
+    fi
+
+    tmux send-keys -t "$monitorId" ",${1}${2}" Enter
+}
+
+
+############################################################
+#
+#  logMessage [ARGS]
+#
+function logMessage
+{
+    echo "$(date +"%Y-%m-%d %H:%M:%S") $*" >> ~/prj/lo/mylog.txt
 }
 
 
@@ -60,17 +129,19 @@ function sendStringToMonitor
 #
 function gotoPalico
 {
+    : ${editId:=$(getPaneID lo-edit)}
+
     local path="$1"
     local line="${2:-0}"
     local column="${3:-0}"
 
     if [ -n "$path" ]; then
-        tmux send-keys -t $(getPaneID lo-edit) ":e $path|call cursor($line,$column)|norm zz" Enter
+        tmux send-keys -t "$editId" ":e $path|call cursor($line,$column)|norm zz" Enter
+        tmux select-pane -t "$editId"
     fi
 }
 
 export -f getPaneID
 export -f gotoPalico
-export -f sendStringToMonitor
-
-
+export -f logMessage
+export -f sendKeysToPane

@@ -1,9 +1,5 @@
-" Key mappings
-function! Include(filename)
-    execute 'source ' . a:filename
-endfunction
-
-call Include($PARENT_DIR . '/mappings.vim')
+" Map ANSI escape sequences to functions keys + modifier keys
+execute 'source' . $PARENT_DIR . '/mappings.vim'
 
 " Disable ruler
 "set noshowmode
@@ -23,14 +19,8 @@ call Include($PARENT_DIR . '/mappings.vim')
 " Set leader key to ","
 let mapleader = ","
 
-" <leader>r in normal mode
-"execute 'nnoremap <leader>r' . ' ' . 'Oabc<Esc>'
-"call Mapam('<leader>k', 'Oabc<Esc>')
-
-" Stop tailing current file
+" Show the argument string on the first line
 function ShowString(str)
     execute 'normal ' . 'O' . a:str
 endfunction
-
-nnoremap <leader>k :call ShowString(input(""))<CR>
 

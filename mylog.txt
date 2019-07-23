@@ -1,0 +1,581 @@
+mylog.txt
+2019-07-05 17:43:56 f6
+2019-07-05 17:44:09 f6
+2019-07-05 17:44:15 f6
+2019-07-05 17:44:21 f6
+2019-07-05 17:44:27 f6
+2019-07-05 17:44:32 f6
+2019-07-05 17:48:25 f6
+2019-07-05 17:48:27 f6
+2019-07-05 17:48:28 f6
+2019-07-05 17:48:29 f6
+2019-07-05 17:48:30 f6
+2019-07-05 17:48:30 f6
+2019-07-05 17:48:41 f6
+2019-07-05 17:48:57 f6
+2019-07-05 17:49:00 f6
+2019-07-05 17:52:41 StopTailing
+2019-07-05 17:52:52 f6
+2019-07-05 17:52:55 f6
+2019-07-05 17:52:56 f6
+2019-07-05 17:54:51 StopTailing
+2019-07-05 17:54:58 f6
+2019-07-05 17:55:00 f6
+2019-07-05 17:55:02 f6
+2019-07-10 18:16:59 StopTailing
+2019-07-10 18:17:13 f6
+2019-07-10 18:17:24 f6
+2019-07-10 18:18:38 StopTailing
+2019-07-10 18:18:47 f6
+2019-07-10 18:18:52 f6
+2019-07-10 18:18:55 f6
+2019-07-10 18:42:19 StopTailing
+2019-07-11 09:15:11 StopTailing
+2019-07-11 09:17:35 StopTailing
+2019-07-11 18:22:00 StopTailing
+2019-07-11 18:29:21 StopTailing
+2019-07-11 18:40:28 StopTailing
+2019-07-17 16:57:04 StopTailing
+2019-07-17 16:57:45 StopTailing
+2019-07-18 08:34:17 StopTailing
+2019-07-22 17:31:58 StopTailing
+2019-07-22 17:42:05 StopTailing
+2019-07-22 17:45:04 StopTailing
+2019-07-22 17:53:51 StopTailing
+2019-07-22 17:56:39 StopTailing
+2019-07-23 08:17:53 StopTailing
+2019-07-23 08:21:38 StopTailing
+2019-07-23 08:24:22 StopTailing
+2019-07-23 08:24:50 StopTailing
+2019-07-23 08:28:21 StopTailing
+2019-07-23 08:30:29 StopTailing
+2019-07-23 08:33:36 StopTailing
+2019-07-23 08:34:30 StopTailing
+2019-07-23 08:38:18 StopTailing
+2019-07-23 08:38:27 DoBashCommand
+2019-07-23 08:38:30 DoBashCommand
+2019-07-23 08:39:22 StopTailing
+2019-07-23 08:41:43 StopTailing
+2019-07-23 08:41:54 DoBashCommand
+2019-07-23 08:41:56 DoBashCommand
+2019-07-23 08:42:03 DoBashCommand
+2019-07-23 08:43:10 StopTailing
+2019-07-23 08:43:15 DoBashCommand
+2019-07-23 08:43:18 DoBashCommand
+2019-07-23 08:45:34 StopTailing
+2019-07-23 08:45:40 DoBashCommand TEST
+2019-07-23 08:45:42 DoBashCommand TEST
+2019-07-23 08:46:11 StopTailing
+2019-07-23 08:46:16 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:46:26 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:46:28 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 08:46:31 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 08:46:31 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 08:46:31 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 08:46:32 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 08:46:33 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:46:33 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:46:33 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:46:33 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:46:34 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:50:44 StopTailing
+2019-07-23 08:50:50 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:50:54 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:51:39 DoBashCommand date
+2019-07-23 08:51:56 DoBashCommand datqfqse
+2019-07-23 08:54:52 StopTailing
+2019-07-23 08:54:57 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:55:02 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:55:06 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:55:09 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:55:12 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:55:14 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:55:17 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 08:56:26 StopTailing
+2019-07-23 08:56:32 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:56:32 sendKeysToPane output F6
+2019-07-23 08:56:38 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:56:38 sendKeysToPane output F6
+2019-07-23 08:56:41 DoBashCommand sendKeysToPane output F6
+2019-07-23 08:56:41 sendKeysToPane output F6
+2019-07-23 17:20:36 StopTailing
+2019-07-23 17:20:41 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:20:41 sendKeysToPane output F6
+2019-07-23 17:20:46 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:20:46 sendKeysToPane output F6
+2019-07-23 17:20:50 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:20:50 sendKeysToPane output F6
+2019-07-23 17:23:58 StopTailing
+2019-07-23 17:24:02 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:24:02 sendKeysToPane output F6
+2019-07-23 17:24:02 sendKeysToPane MARK 100
+2019-07-23 17:24:02 sendKeysToPane MARK 110
+2019-07-23 17:24:02 paneIdVar=@outputPaneID
+2019-07-23 17:24:06 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:24:06 sendKeysToPane output F6
+2019-07-23 17:24:06 sendKeysToPane MARK 100
+2019-07-23 17:24:06 sendKeysToPane MARK 110
+2019-07-23 17:24:06 paneIdVar=@outputPaneID
+2019-07-23 17:25:52 StopTailing
+2019-07-23 17:25:56 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:25:56 sendKeysToPane output F6
+2019-07-23 17:25:56 sendKeysToPane MARK 100
+2019-07-23 17:25:56 sendKeysToPane MARK 110
+2019-07-23 17:25:56 paneIdVar=@outputPaneID
+2019-07-23 17:25:57 send-keys command: tmux send-keys -t @outputPaneID "%228" F6
+2019-07-23 17:29:38 StopTailing
+2019-07-23 17:29:42 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:29:42 sendKeysToPane output F6
+2019-07-23 17:29:42 sendKeysToPane MARK 100
+2019-07-23 17:29:42 sendKeysToPane MARK 110
+2019-07-23 17:29:42 paneIdVar=@outputPaneID
+2019-07-23 17:29:42 send-keys command: tmux send-keys -t %232 F6
+2019-07-23 17:29:46 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:29:46 sendKeysToPane output F6
+2019-07-23 17:29:46 sendKeysToPane MARK 100
+2019-07-23 17:29:46 sendKeysToPane MARK 110
+2019-07-23 17:29:46 paneIdVar=@outputPaneID
+2019-07-23 17:29:46 send-keys command: tmux send-keys -t %232 F6
+2019-07-23 17:29:47 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:29:47 sendKeysToPane output F6
+2019-07-23 17:29:47 sendKeysToPane MARK 100
+2019-07-23 17:29:47 sendKeysToPane MARK 110
+2019-07-23 17:29:47 paneIdVar=@outputPaneID
+2019-07-23 17:29:47 send-keys command: tmux send-keys -t %232 F6
+2019-07-23 17:29:48 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:29:48 sendKeysToPane output F6
+2019-07-23 17:29:48 sendKeysToPane MARK 100
+2019-07-23 17:29:48 sendKeysToPane MARK 110
+2019-07-23 17:29:48 paneIdVar=@outputPaneID
+2019-07-23 17:29:48 send-keys command: tmux send-keys -t %232 F6
+2019-07-23 17:29:49 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:29:49 sendKeysToPane output F6
+2019-07-23 17:29:49 sendKeysToPane MARK 100
+2019-07-23 17:29:49 sendKeysToPane MARK 110
+2019-07-23 17:29:49 paneIdVar=@outputPaneID
+2019-07-23 17:29:49 send-keys command: tmux send-keys -t %232 F6
+2019-07-23 17:29:49 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:29:49 sendKeysToPane output F6
+2019-07-23 17:29:49 sendKeysToPane MARK 100
+2019-07-23 17:29:49 sendKeysToPane MARK 110
+2019-07-23 17:29:49 paneIdVar=@outputPaneID
+2019-07-23 17:29:49 send-keys command: tmux send-keys -t %232 F6
+2019-07-23 17:29:51 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:29:51 sendKeysToPane output S-F6
+2019-07-23 17:29:51 sendKeysToPane MARK 100
+2019-07-23 17:29:51 sendKeysToPane MARK 110
+2019-07-23 17:29:51 paneIdVar=@outputPaneID
+2019-07-23 17:29:51 send-keys command: tmux send-keys -t %232 S-F6
+2019-07-23 17:29:52 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:29:52 sendKeysToPane output S-F6
+2019-07-23 17:29:52 sendKeysToPane MARK 100
+2019-07-23 17:29:52 sendKeysToPane MARK 110
+2019-07-23 17:29:52 paneIdVar=@outputPaneID
+2019-07-23 17:29:52 send-keys command: tmux send-keys -t %232 S-F6
+2019-07-23 17:29:52 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:29:52 sendKeysToPane output S-F6
+2019-07-23 17:29:52 sendKeysToPane MARK 100
+2019-07-23 17:29:52 sendKeysToPane MARK 110
+2019-07-23 17:29:52 paneIdVar=@outputPaneID
+2019-07-23 17:29:52 send-keys command: tmux send-keys -t %232 S-F6
+2019-07-23 17:29:54 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:29:54 sendKeysToPane output S-F6
+2019-07-23 17:29:54 sendKeysToPane MARK 100
+2019-07-23 17:29:54 sendKeysToPane MARK 110
+2019-07-23 17:29:54 paneIdVar=@outputPaneID
+2019-07-23 17:29:54 send-keys command: tmux send-keys -t %232 S-F6
+2019-07-23 17:29:55 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:29:55 sendKeysToPane output F6
+2019-07-23 17:29:55 sendKeysToPane MARK 100
+2019-07-23 17:29:55 sendKeysToPane MARK 110
+2019-07-23 17:29:55 paneIdVar=@outputPaneID
+2019-07-23 17:29:55 send-keys command: tmux send-keys -t %232 F6
+2019-07-23 17:29:57 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:29:57 sendKeysToPane output F6
+2019-07-23 17:29:57 sendKeysToPane MARK 100
+2019-07-23 17:29:57 sendKeysToPane MARK 110
+2019-07-23 17:29:57 paneIdVar=@outputPaneID
+2019-07-23 17:29:57 send-keys command: tmux send-keys -t %232 F6
+2019-07-23 17:29:58 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:29:58 sendKeysToPane output F6
+2019-07-23 17:29:58 sendKeysToPane MARK 100
+2019-07-23 17:29:58 sendKeysToPane MARK 110
+2019-07-23 17:29:58 paneIdVar=@outputPaneID
+2019-07-23 17:29:58 send-keys command: tmux send-keys -t %232 F6
+2019-07-23 17:30:48 StopTailing
+2019-07-23 17:30:52 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:30:52 sendKeysToPane output F6
+2019-07-23 17:30:52 sendKeysToPane MARK 100
+2019-07-23 17:30:52 sendKeysToPane MARK 110
+2019-07-23 17:30:52 paneIdVar=@outputPaneID
+2019-07-23 17:30:52 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:30:53 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:30:53 sendKeysToPane output F6
+2019-07-23 17:30:53 sendKeysToPane MARK 100
+2019-07-23 17:30:53 sendKeysToPane MARK 110
+2019-07-23 17:30:53 paneIdVar=@outputPaneID
+2019-07-23 17:30:53 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:30:54 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:30:54 sendKeysToPane output F6
+2019-07-23 17:30:54 sendKeysToPane MARK 100
+2019-07-23 17:30:54 sendKeysToPane MARK 110
+2019-07-23 17:30:54 paneIdVar=@outputPaneID
+2019-07-23 17:30:54 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:30:55 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:30:55 sendKeysToPane output F6
+2019-07-23 17:30:55 sendKeysToPane MARK 100
+2019-07-23 17:30:55 sendKeysToPane MARK 110
+2019-07-23 17:30:55 paneIdVar=@outputPaneID
+2019-07-23 17:30:55 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:30:56 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:30:56 sendKeysToPane output F6
+2019-07-23 17:30:56 sendKeysToPane MARK 100
+2019-07-23 17:30:56 sendKeysToPane MARK 110
+2019-07-23 17:30:56 paneIdVar=@outputPaneID
+2019-07-23 17:30:56 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:30:57 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:30:58 sendKeysToPane output F6
+2019-07-23 17:30:58 sendKeysToPane MARK 100
+2019-07-23 17:30:58 sendKeysToPane MARK 110
+2019-07-23 17:30:58 paneIdVar=@outputPaneID
+2019-07-23 17:30:58 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:30:58 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:30:58 sendKeysToPane output F6
+2019-07-23 17:30:58 sendKeysToPane MARK 100
+2019-07-23 17:30:58 sendKeysToPane MARK 110
+2019-07-23 17:30:58 paneIdVar=@outputPaneID
+2019-07-23 17:30:58 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:30:58 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:30:58 sendKeysToPane output F6
+2019-07-23 17:30:58 sendKeysToPane MARK 100
+2019-07-23 17:30:58 sendKeysToPane MARK 110
+2019-07-23 17:30:58 paneIdVar=@outputPaneID
+2019-07-23 17:30:58 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:30:58 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:30:58 sendKeysToPane output F6
+2019-07-23 17:30:58 sendKeysToPane MARK 100
+2019-07-23 17:30:58 sendKeysToPane MARK 110
+2019-07-23 17:30:58 paneIdVar=@outputPaneID
+2019-07-23 17:30:58 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:30:59 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:30:59 sendKeysToPane output F6
+2019-07-23 17:30:59 sendKeysToPane MARK 100
+2019-07-23 17:30:59 sendKeysToPane MARK 110
+2019-07-23 17:30:59 paneIdVar=@outputPaneID
+2019-07-23 17:30:59 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:30:59 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:30:59 sendKeysToPane output F6
+2019-07-23 17:30:59 sendKeysToPane MARK 100
+2019-07-23 17:30:59 sendKeysToPane MARK 110
+2019-07-23 17:30:59 paneIdVar=@outputPaneID
+2019-07-23 17:30:59 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:30:59 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:30:59 sendKeysToPane output F6
+2019-07-23 17:30:59 sendKeysToPane MARK 100
+2019-07-23 17:30:59 sendKeysToPane MARK 110
+2019-07-23 17:30:59 paneIdVar=@outputPaneID
+2019-07-23 17:30:59 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:30:59 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:30:59 sendKeysToPane output F6
+2019-07-23 17:30:59 sendKeysToPane MARK 100
+2019-07-23 17:30:59 sendKeysToPane MARK 110
+2019-07-23 17:30:59 paneIdVar=@outputPaneID
+2019-07-23 17:30:59 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:30:59 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:30:59 sendKeysToPane output F6
+2019-07-23 17:30:59 sendKeysToPane MARK 100
+2019-07-23 17:30:59 sendKeysToPane MARK 110
+2019-07-23 17:30:59 paneIdVar=@outputPaneID
+2019-07-23 17:30:59 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:30:59 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:30:59 sendKeysToPane output F6
+2019-07-23 17:30:59 sendKeysToPane MARK 100
+2019-07-23 17:30:59 sendKeysToPane MARK 110
+2019-07-23 17:30:59 paneIdVar=@outputPaneID
+2019-07-23 17:30:59 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:30:59 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:30:59 sendKeysToPane output F6
+2019-07-23 17:30:59 sendKeysToPane MARK 100
+2019-07-23 17:30:59 sendKeysToPane MARK 110
+2019-07-23 17:30:59 paneIdVar=@outputPaneID
+2019-07-23 17:30:59 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:31:00 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:31:00 sendKeysToPane output S-F6
+2019-07-23 17:31:00 sendKeysToPane MARK 100
+2019-07-23 17:31:00 sendKeysToPane MARK 110
+2019-07-23 17:31:00 paneIdVar=@outputPaneID
+2019-07-23 17:31:00 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:31:01 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:31:01 sendKeysToPane output S-F6
+2019-07-23 17:31:01 sendKeysToPane MARK 100
+2019-07-23 17:31:01 sendKeysToPane MARK 110
+2019-07-23 17:31:01 paneIdVar=@outputPaneID
+2019-07-23 17:31:01 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:31:01 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:31:01 sendKeysToPane output S-F6
+2019-07-23 17:31:01 sendKeysToPane MARK 100
+2019-07-23 17:31:01 sendKeysToPane MARK 110
+2019-07-23 17:31:01 paneIdVar=@outputPaneID
+2019-07-23 17:31:01 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:31:01 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:31:01 sendKeysToPane output S-F6
+2019-07-23 17:31:01 sendKeysToPane MARK 100
+2019-07-23 17:31:01 sendKeysToPane MARK 110
+2019-07-23 17:31:01 paneIdVar=@outputPaneID
+2019-07-23 17:31:01 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:31:01 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:31:01 sendKeysToPane output S-F6
+2019-07-23 17:31:01 sendKeysToPane MARK 100
+2019-07-23 17:31:01 sendKeysToPane MARK 110
+2019-07-23 17:31:01 paneIdVar=@outputPaneID
+2019-07-23 17:31:01 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:31:01 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:31:01 sendKeysToPane output S-F6
+2019-07-23 17:31:01 sendKeysToPane MARK 100
+2019-07-23 17:31:01 sendKeysToPane MARK 110
+2019-07-23 17:31:02 paneIdVar=@outputPaneID
+2019-07-23 17:31:02 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:31:02 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:31:02 sendKeysToPane output S-F6
+2019-07-23 17:31:02 sendKeysToPane MARK 100
+2019-07-23 17:31:02 sendKeysToPane MARK 110
+2019-07-23 17:31:02 paneIdVar=@outputPaneID
+2019-07-23 17:31:02 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:31:02 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:31:02 sendKeysToPane output S-F6
+2019-07-23 17:31:02 sendKeysToPane MARK 100
+2019-07-23 17:31:02 sendKeysToPane MARK 110
+2019-07-23 17:31:02 paneIdVar=@outputPaneID
+2019-07-23 17:31:02 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:31:02 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:31:02 sendKeysToPane output S-F6
+2019-07-23 17:31:02 sendKeysToPane MARK 100
+2019-07-23 17:31:02 sendKeysToPane MARK 110
+2019-07-23 17:31:02 paneIdVar=@outputPaneID
+2019-07-23 17:31:02 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:31:02 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:31:02 sendKeysToPane output S-F6
+2019-07-23 17:31:02 sendKeysToPane MARK 100
+2019-07-23 17:31:02 sendKeysToPane MARK 110
+2019-07-23 17:31:02 paneIdVar=@outputPaneID
+2019-07-23 17:31:02 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:31:02 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:31:02 sendKeysToPane output S-F6
+2019-07-23 17:31:02 sendKeysToPane MARK 100
+2019-07-23 17:31:02 sendKeysToPane MARK 110
+2019-07-23 17:31:02 paneIdVar=@outputPaneID
+2019-07-23 17:31:02 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:31:03 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:31:03 sendKeysToPane output F6
+2019-07-23 17:31:03 sendKeysToPane MARK 100
+2019-07-23 17:31:03 sendKeysToPane MARK 110
+2019-07-23 17:31:03 paneIdVar=@outputPaneID
+2019-07-23 17:31:03 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:31:04 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:31:04 sendKeysToPane output F6
+2019-07-23 17:31:04 sendKeysToPane MARK 100
+2019-07-23 17:31:04 sendKeysToPane MARK 110
+2019-07-23 17:31:04 paneIdVar=@outputPaneID
+2019-07-23 17:31:04 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:31:04 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:31:04 sendKeysToPane output F6
+2019-07-23 17:31:04 sendKeysToPane MARK 100
+2019-07-23 17:31:04 sendKeysToPane MARK 110
+2019-07-23 17:31:04 paneIdVar=@outputPaneID
+2019-07-23 17:31:04 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:31:04 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:31:04 sendKeysToPane output F6
+2019-07-23 17:31:04 sendKeysToPane MARK 100
+2019-07-23 17:31:04 sendKeysToPane MARK 110
+2019-07-23 17:31:04 paneIdVar=@outputPaneID
+2019-07-23 17:31:04 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:31:04 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:31:04 sendKeysToPane output F6
+2019-07-23 17:31:04 sendKeysToPane MARK 100
+2019-07-23 17:31:04 sendKeysToPane MARK 110
+2019-07-23 17:31:04 paneIdVar=@outputPaneID
+2019-07-23 17:31:04 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:31:11 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:31:11 sendKeysToPane output F6
+2019-07-23 17:31:11 sendKeysToPane MARK 100
+2019-07-23 17:31:11 sendKeysToPane MARK 110
+2019-07-23 17:31:11 paneIdVar=@outputPaneID
+2019-07-23 17:31:11 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:31:12 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:31:12 sendKeysToPane output S-F6
+2019-07-23 17:31:12 sendKeysToPane MARK 100
+2019-07-23 17:31:12 sendKeysToPane MARK 110
+2019-07-23 17:31:12 paneIdVar=@outputPaneID
+2019-07-23 17:31:12 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:31:19 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:31:19 sendKeysToPane output F6
+2019-07-23 17:31:19 sendKeysToPane MARK 100
+2019-07-23 17:31:19 sendKeysToPane MARK 110
+2019-07-23 17:31:19 paneIdVar=@outputPaneID
+2019-07-23 17:31:19 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:31:20 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:31:20 sendKeysToPane output S-F6
+2019-07-23 17:31:20 sendKeysToPane MARK 100
+2019-07-23 17:31:20 sendKeysToPane MARK 110
+2019-07-23 17:31:20 paneIdVar=@outputPaneID
+2019-07-23 17:31:20 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:31:23 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:31:23 sendKeysToPane output S-F6
+2019-07-23 17:31:23 sendKeysToPane MARK 100
+2019-07-23 17:31:23 sendKeysToPane MARK 110
+2019-07-23 17:31:23 paneIdVar=@outputPaneID
+2019-07-23 17:31:23 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:31:23 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:31:23 sendKeysToPane output S-F6
+2019-07-23 17:31:23 sendKeysToPane MARK 100
+2019-07-23 17:31:23 sendKeysToPane MARK 110
+2019-07-23 17:31:23 paneIdVar=@outputPaneID
+2019-07-23 17:31:23 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:31:45 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:31:45 sendKeysToPane output F6
+2019-07-23 17:31:45 sendKeysToPane MARK 100
+2019-07-23 17:31:45 sendKeysToPane MARK 110
+2019-07-23 17:31:45 paneIdVar=@outputPaneID
+2019-07-23 17:31:45 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:31:51 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:31:51 sendKeysToPane output F6
+2019-07-23 17:31:51 sendKeysToPane MARK 100
+2019-07-23 17:31:51 sendKeysToPane MARK 110
+2019-07-23 17:31:51 paneIdVar=@outputPaneID
+2019-07-23 17:31:51 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:31:52 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:31:52 sendKeysToPane output F6
+2019-07-23 17:31:52 sendKeysToPane MARK 100
+2019-07-23 17:31:52 sendKeysToPane MARK 110
+2019-07-23 17:31:52 paneIdVar=@outputPaneID
+2019-07-23 17:31:52 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:31:54 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:31:54 sendKeysToPane output F6
+2019-07-23 17:31:54 sendKeysToPane MARK 100
+2019-07-23 17:31:54 sendKeysToPane MARK 110
+2019-07-23 17:31:54 paneIdVar=@outputPaneID
+2019-07-23 17:31:54 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:31:55 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:31:55 sendKeysToPane output F6
+2019-07-23 17:31:55 sendKeysToPane MARK 100
+2019-07-23 17:31:55 sendKeysToPane MARK 110
+2019-07-23 17:31:55 paneIdVar=@outputPaneID
+2019-07-23 17:31:55 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:31:56 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:31:56 sendKeysToPane output F6
+2019-07-23 17:31:56 sendKeysToPane MARK 100
+2019-07-23 17:31:56 sendKeysToPane MARK 110
+2019-07-23 17:31:56 paneIdVar=@outputPaneID
+2019-07-23 17:31:56 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:32:04 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:32:04 sendKeysToPane output F6
+2019-07-23 17:32:04 sendKeysToPane MARK 100
+2019-07-23 17:32:04 sendKeysToPane MARK 110
+2019-07-23 17:32:04 paneIdVar=@outputPaneID
+2019-07-23 17:32:04 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:32:06 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:32:06 sendKeysToPane output S-F6
+2019-07-23 17:32:06 sendKeysToPane MARK 100
+2019-07-23 17:32:06 sendKeysToPane MARK 110
+2019-07-23 17:32:06 paneIdVar=@outputPaneID
+2019-07-23 17:32:06 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:32:07 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:32:07 sendKeysToPane output S-F6
+2019-07-23 17:32:07 sendKeysToPane MARK 100
+2019-07-23 17:32:07 sendKeysToPane MARK 110
+2019-07-23 17:32:07 paneIdVar=@outputPaneID
+2019-07-23 17:32:07 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:32:08 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:32:08 sendKeysToPane output S-F6
+2019-07-23 17:32:08 sendKeysToPane MARK 100
+2019-07-23 17:32:08 sendKeysToPane MARK 110
+2019-07-23 17:32:08 paneIdVar=@outputPaneID
+2019-07-23 17:32:08 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:32:08 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:32:08 sendKeysToPane output S-F6
+2019-07-23 17:32:08 sendKeysToPane MARK 100
+2019-07-23 17:32:08 sendKeysToPane MARK 110
+2019-07-23 17:32:08 paneIdVar=@outputPaneID
+2019-07-23 17:32:08 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:32:08 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:32:08 sendKeysToPane output S-F6
+2019-07-23 17:32:08 sendKeysToPane MARK 100
+2019-07-23 17:32:08 sendKeysToPane MARK 110
+2019-07-23 17:32:08 paneIdVar=@outputPaneID
+2019-07-23 17:32:08 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:32:08 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:32:08 sendKeysToPane output S-F6
+2019-07-23 17:32:08 sendKeysToPane MARK 100
+2019-07-23 17:32:08 sendKeysToPane MARK 110
+2019-07-23 17:32:08 paneIdVar=@outputPaneID
+2019-07-23 17:32:08 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:32:09 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:32:09 sendKeysToPane output S-F6
+2019-07-23 17:32:09 sendKeysToPane MARK 100
+2019-07-23 17:32:09 sendKeysToPane MARK 110
+2019-07-23 17:32:09 paneIdVar=@outputPaneID
+2019-07-23 17:32:09 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:32:09 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:32:09 sendKeysToPane output S-F6
+2019-07-23 17:32:09 sendKeysToPane MARK 100
+2019-07-23 17:32:09 sendKeysToPane MARK 110
+2019-07-23 17:32:09 paneIdVar=@outputPaneID
+2019-07-23 17:32:09 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:32:09 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:32:09 sendKeysToPane output S-F6
+2019-07-23 17:32:09 sendKeysToPane MARK 100
+2019-07-23 17:32:09 sendKeysToPane MARK 110
+2019-07-23 17:32:09 paneIdVar=@outputPaneID
+2019-07-23 17:32:09 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:32:10 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:32:10 sendKeysToPane output S-F6
+2019-07-23 17:32:10 sendKeysToPane MARK 100
+2019-07-23 17:32:10 sendKeysToPane MARK 110
+2019-07-23 17:32:10 paneIdVar=@outputPaneID
+2019-07-23 17:32:10 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:32:11 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:32:11 sendKeysToPane output S-F6
+2019-07-23 17:32:11 sendKeysToPane MARK 100
+2019-07-23 17:32:11 sendKeysToPane MARK 110
+2019-07-23 17:32:11 paneIdVar=@outputPaneID
+2019-07-23 17:32:11 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:32:12 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:32:12 sendKeysToPane output S-F6
+2019-07-23 17:32:12 sendKeysToPane MARK 100
+2019-07-23 17:32:12 sendKeysToPane MARK 110
+2019-07-23 17:32:12 paneIdVar=@outputPaneID
+2019-07-23 17:32:12 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:32:13 DoBashCommand sendKeysToPane output F6
+2019-07-23 17:32:13 sendKeysToPane output F6
+2019-07-23 17:32:13 sendKeysToPane MARK 100
+2019-07-23 17:32:13 sendKeysToPane MARK 110
+2019-07-23 17:32:13 paneIdVar=@outputPaneID
+2019-07-23 17:32:13 send-keys command: tmux send-keys -t %236 F6
+2019-07-23 17:32:16 DoBashCommand sendKeysToPane output S-F6
+2019-07-23 17:32:16 sendKeysToPane output S-F6
+2019-07-23 17:32:16 sendKeysToPane MARK 100
+2019-07-23 17:32:16 sendKeysToPane MARK 110
+2019-07-23 17:32:16 paneIdVar=@outputPaneID
+2019-07-23 17:32:16 send-keys command: tmux send-keys -t %236 S-F6
+2019-07-23 17:35:13 StopTailing
+2019-07-23 17:35:18 sendKeysToPane output F6
+2019-07-23 17:35:38 StopTailing
+2019-07-23 17:35:48 sendKeysToPane output F6
+2019-07-23 17:35:51 sendKeysToPane output F6
+2019-07-23 17:35:53 sendKeysToPane output S-F6
+2019-07-23 17:35:57 sendKeysToPane output F6
+2019-07-23 17:35:57 sendKeysToPane output F6
+2019-07-23 17:36:05 sendKeysToPane output F6
+2019-07-23 17:36:06 sendKeysToPane output F6
+2019-07-23 17:36:06 sendKeysToPane output F6
+2019-07-23 17:36:06 sendKeysToPane output F6
+2019-07-23 17:36:08 sendKeysToPane output S-F6
+2019-07-23 17:36:08 sendKeysToPane output S-F6
+2019-07-23 17:36:08 sendKeysToPane output S-F6
+2019-07-23 17:36:08 sendKeysToPane output S-F6
+2019-07-23 17:36:15 sendKeysToPane output F6
+2019-07-23 17:36:15 sendKeysToPane output F6
+2019-07-23 17:36:16 sendKeysToPane output F6
+2019-07-23 17:36:17 sendKeysToPane output S-F6
+2019-07-23 17:36:17 sendKeysToPane output S-F6
+2019-07-23 17:36:18 sendKeysToPane output S-F6

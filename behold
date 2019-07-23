@@ -24,8 +24,8 @@ checkForHelp $1
 minNumArgs 1 $#
 
 # Obain path to behold.vim
-export BEHOLD_DIR="$(dirname $(readlink -f "$0"))"
-vimScript="$BEHOLD_DIR/behold.vim"
+export PARENT_DIR="$(dirname $(readlink -f "$0"))"
+vimScript="$PARENT_DIR/behold.vim"
 
 follow=false
 filename=
