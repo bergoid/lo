@@ -19,6 +19,17 @@
                 . Alt-F7: ",mf7<Enter>"
     v put focus on edit pane
         v handle F6 - S-F6 in editor too and pass it to output pane via monitor
+
+    . Create a simplified 'lo' as a 'glon' & 'flon' replacement:
+        . disable everything except edit & output. Disable:
+            . lo-monitor pane
+            . lo-placeholder pane
+            . lo-back window
+        . provide a way to quickly close the 'lo' session with alt-f12 & ctrl-f12
+            . make sure the tmux client is switched back to $oldSessionID
+
+    . enable mon/pla/back again
+
     . show list of processes, each belonging to another pane that can be swapped into the "output pane" position
     . every process on another line. Each line containing:
         . the exit status of the process, or 3 spaces if not yet finished

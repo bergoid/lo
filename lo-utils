@@ -78,6 +78,16 @@ function sendKeysToPane
     tmux send-keys -t "$(tmux show-options -v $paneIdVar)" "$2"
 }
 
+#
+function saveAndExitLo
+{
+}
+
+#
+function exitLo
+{
+}
+
 ############################################################
 #
 # Send a command to the monitor process
@@ -145,3 +155,5 @@ export -f getPaneID
 export -f gotoPalico
 export -f logMessage
 export -f sendKeysToPane
+export -f saveAndExitLo
+export -f exitLo

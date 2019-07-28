@@ -141,30 +141,28 @@ else
     try tmux select-pane -T lo-output -t "$outputPaneID"
 
     # Split off monitor pane from output pane
-#    monitorPaneID="$(tmux split-window -vdbP -l 5 -t "$outputPaneID" "$PARENT_DIR/do-monitor" -F "#{pane_id}")"
-    monitorPaneID="$(tmux split-window -vdbP -F "#{pane_id}" -p 50 -t "$outputPaneID" "less +F $PARENT_DIR/mylog.txt")"
-#    monitorPaneID="$(tmux split-window -vdbP -p 50 -t "$outputPaneID" -F "#{pane_id}")"
-    try test -n "$monitorPaneID"
-    try tmux select-pane -T lo-monitor -t "$monitorPaneID"
+##    monitorPaneID="$(tmux split-window -vdbP -F "#{pane_id}" -l 5 -t "$outputPaneID" "$PARENT_DIR/do-monitor")"
+#    monitorPaneID="$(tmux split-window -vdbP -F "#{pane_id}" -p 50 -t "$outputPaneID" "less +F $PARENT_DIR/mylog.txt")"
+#    try test -n "$monitorPaneID"
+#    try tmux select-pane -T lo-monitor -t "$monitorPaneID"
 
     # Create 'lo-back' window in the background
-    windowAndPane="$(tmux new-window -dP -F "#{window_id} #{pane_id}" -n lo-back -t "$sessionID")"
-    backWindowID="$(echo "$windowAndPane" | cut -d ' ' -f 1)"
-    try test -n "$backWindowID"
+#    windowAndPane="$(tmux new-window -dP -F "#{window_id} #{pane_id}" -n lo-back -t "$sessionID")"
+#    backWindowID="$(echo "$windowAndPane" | cut -d ' ' -f 1)"
+#    try test -n "$backWindowID"
 
     # Set the title of the placeholder pane
-    placeholderPaneID="$(echo "$windowAndPane" | cut -d ' ' -f 2)"
-    try test -n "$placeholderPaneID"
-    try tmux select-pane -T lo-placeholder -t "$placeholderPaneID"
+#    placeholderPaneID="$(echo "$windowAndPane" | cut -d ' ' -f 2)"
+#    try test -n "$placeholderPaneID"
+#    try tmux select-pane -T lo-placeholder -t "$placeholderPaneID"
 
     # Create session-wide variables
     tmux set-option -t "$sessionID" @sessionID "$sessionID"
     tmux set-option -t "$sessionID" @frontWindowID "$frontWindowID"
-    tmux set-option -t "$sessionID" @backWindowID "$backWindowID"
-    tmux set-option -t "$sessionID" @monitorPaneID "$monitorPaneID"
+#    tmux set-option -t "$sessionID" @backWindowID "$backWindowID"
+#    tmux set-option -t "$sessionID" @monitorPaneID "$monitorPaneID"
     tmux set-option -t "$sessionID" @editPaneID "$editPaneID"
     tmux set-option -t "$sessionID" @outputPaneID "$outputPaneID"
-    tmux set-option -t "$sessionID" @sessionID "$sessionID"
 
     # Switch to newly created session
     tmux switch-client -t "$sessionID"
