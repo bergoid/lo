@@ -18,7 +18,7 @@ fi
 function getPaneID
 {
     if [ -n "$1" ]; then
-        tmux list-panes -F "#{pane_id} #{pane_title}" | grep "${1}$" | cut -d ' ' -f 1
+        tmux list-panes -sF "#{pane_id} #{pane_title}" | grep "${1}$" | cut -d ' ' -f 1
     else
         tmux display-message -p "#{pane_id}"
     fi
@@ -34,7 +34,7 @@ function getPaneID
 function getWindowID
 {
     if [ -n "$1" ]; then
-        tmux list-windows -F "#{window_id} #{window_name}" | grep "${1}$" | cut -d ' ' -f 1
+        tmux list-windows -sF "#{window_id} #{window_name}" | grep "${1}$" | cut -d ' ' -f 1
     else
         tmux display-message -p "#{window_id}"
     fi
@@ -78,15 +78,29 @@ function sendKeysToPane
     tmux send-keys -t "$(tmux show-options -v $paneIdVar)" "$2"
 }
 
+
+############################################################
+#
+# Save file currently open in 'vim' and exit 'lo'
 #
 function saveAndExitLo
 {
+    # Save file & close vim
+    sendKeysToPane edit ",M-F12"
+
+
 }
 
+
+############################################################
+#
+# Exit 'lo' without saving file in 'vim'
 #
 function exitLo
 {
+    echo hihi
 }
+
 
 ############################################################
 #

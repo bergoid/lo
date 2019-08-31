@@ -21,10 +21,10 @@
         v handle F6 - S-F6 in editor too and pass it to output pane via monitor
 
     . Create a simplified 'lo' as a 'glon' & 'flon' replacement:
-        . disable everything except edit & output. Disable:
-            . lo-monitor pane
-            . lo-placeholder pane
-            . lo-back window
+        v disable everything except edit & output. Disable:
+            v lo-monitor pane
+            v lo-placeholder pane
+            v lo-back window
         . provide a way to quickly close the 'lo' session with alt-f12 & ctrl-f12
             . make sure the tmux client is switched back to $oldSessionID
 
